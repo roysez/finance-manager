@@ -1,9 +1,5 @@
 <!DOCTYPE HTML>
-<!--
-	Monochromed by TEMPLATED
-    templated.co @templatedco
-    Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
--->
+<!--/*--><!--@thymesVar id="controller" type="dev.roysez.financemanager.controller.Controller"--><!--*/-->
 <html xmlns:th="http://www.thymeleaf.org">
 	<head>
 		<title>Finance Manager</title>
@@ -68,16 +64,16 @@
 	<!-- Main -->
 		<div id="main">
 
-			<div class="container">
+			<div class="container-fluid">
 
 				<div class="row">
 
 					<!-- Content -->
-					<div class="row col-md-8  custyle">
-						<table class="table table-striped custab">
+					<div class=" col-md-9 offset-md-2 custyle">
+						<table class="table table-striped custab" >
 							<thead>
 							<tr>
-								<th>ID</th>
+								<th>ID </th>
 								<th>Type</th>
 								<th>Description</th>
 								<th>Sum</th>
@@ -86,13 +82,13 @@
 								<th class="text-center">Action</th>
 							</tr>
 							</thead>
-							<tr>
-								<td>1</td>
-								<td>News</td>
-								<td>News Cate</td>
-								<td>News Cate</td>
-								<td>News Cate</td>
-								<td>News Cate</td>
+							<tr th:each="transaction : ${list}">
+								<td th:text="${transaction.id}"></td>
+								<td th:text="${transaction.trType}">News</td>
+								<td th:text="${transaction.description}">News Cate</td>
+								<td th:text="${transaction.sum}">News Cate</td>
+								<td th:text="${transaction.category}">News Cate</td>
+								<td th:text="${transaction.date}">News Cate</td>
 								<td class="text-center">
 									<div class="ui-group-buttons">
 										<a href="http://www.jquery2dotnet.com" class="btn btn-success" role="button">
@@ -103,166 +99,14 @@
 									</div>
 								</td>
 							</tr>
-							<tr>
-								<td>2</td>
-								<td>Products</td>
-								<td>Main Products</td>
-								<td>News Cate</td>
-								<td>News Cate</td>
-								<td>News Cate</td>
-								<td class="text-center">
-									<div class="ui-group-buttons">
-										<a href="http://www.jquery2dotnet.com" class="btn btn-success" role="button">
-											<span class="glyphicon glyphicon-ok"></span> Edit</a>
-										<div class="or"></div>
-										<a href="http://www.jquery2dotnet.com" class="btn btn-danger" role="button">
-											<span class="glyphicon glyphicon-remove"></span> Delete</a>
-									</div>
-								</td>
-							</tr>
-							<tr>
-								<td>3</td>
-								<td>Blogs</td>
-								<td>Parent Blogs</td>
-								<td>News Cate</td>
-								<td>News Cate</td>
-								<td>News Cate</td>
-								<td class="text-center">
-									<div class="ui-group-buttons">
-										<a href="http://www.jquery2dotnet.com" class="btn btn-success" role="button">
-											<span class="glyphicon glyphicon-ok"></span> Edit</a>
-										<div class="or"></div>
-										<a href="http://www.jquery2dotnet.com" class="btn btn-danger" role="button">
-											<span class="glyphicon glyphicon-remove"></span> Delete</a>
-									</div>
-								</td>
-							</tr>
-							<tr>
-								<td>3</td>
-								<td>Blogs</td>
-								<td>Parent Blogs</td>
-								<td>News Cate</td>
-								<td>News Cate</td>
-								<td>News Cate</td>
-								<td class="text-center">
-									<div class="ui-group-buttons">
-										<a href="http://www.jquery2dotnet.com" class="btn btn-success" role="button">
-											<span class="glyphicon glyphicon-ok"></span> Edit</a>
-										<div class="or"></div>
-										<a href="http://www.jquery2dotnet.com" class="btn btn-danger" role="button">
-											<span class="glyphicon glyphicon-remove"></span> Delete</a>
-									</div>
-								</td>
-							</tr>
-							<tr>
-								<td>3</td>
-								<td>Blogs</td>
-								<td>Parent Blogs</td>
-								<td>News Cate</td>
-								<td>News Cate</td>
-								<td>News Cate</td>
-								<td class="text-center">
-									<div class="ui-group-buttons">
-										<a href="http://www.jquery2dotnet.com" class="btn btn-success" role="button">
-											<span class="glyphicon glyphicon-ok"></span> Edit</a>
-										<div class="or"></div>
-										<a href="http://www.jquery2dotnet.com" class="btn btn-danger" role="button">
-											<span class="glyphicon glyphicon-remove"></span> Delete</a>
-									</div>
-								</td>
-							</tr>
-							<tr>
-								<td>3</td>
-								<td>Blogs</td>
-								<td>Parent Blogs</td>
-								<td>News Cate</td>
-								<td>News Cate</td>
-								<td>News Cate</td>
-								<td class="text-center">
-									<div class="ui-group-buttons">
-										<a href="http://www.jquery2dotnet.com" class="btn btn-success" role="button">
-											<span class="glyphicon glyphicon-ok"></span> Edit</a>
-										<div class="or"></div>
-										<a href="http://www.jquery2dotnet.com" class="btn btn-danger" role="button">
-											<span class="glyphicon glyphicon-remove"></span> Delete</a>
-									</div>
-								</td>
-							</tr>
-							<tr>
-								<td>3</td>
-								<td>Blogs</td>
-								<td>Parent Blogs</td>
-								<td>News Cate</td>
-								<td>News Cate</td>
-								<td>News Cate</td>
-								<td class="text-center">
-									<div class="ui-group-buttons">
-										<a href="http://www.jquery2dotnet.com" class="btn btn-success" role="button">
-											<span class="glyphicon glyphicon-ok"></span> Edit</a>
-										<div class="or"></div>
-										<a href="http://www.jquery2dotnet.com" class="btn btn-danger" role="button">
-											<span class="glyphicon glyphicon-remove"></span> Delete</a>
-									</div>
-								</td>
-							</tr>
-							<tr>
-								<td>3</td>
-								<td>Blogs</td>
-								<td>Parent Blogs</td>
-								<td>News Cate</td>
-								<td>News Cate</td>
-								<td>News Cate</td>
-								<td class="text-center">
-									<div class="ui-group-buttons">
-										<a href="http://www.jquery2dotnet.com" class="btn btn-success" role="button">
-											<span class="glyphicon glyphicon-ok"></span> Edit</a>
-										<div class="or"></div>
-										<a href="http://www.jquery2dotnet.com" class="btn btn-danger" role="button">
-											<span class="glyphicon glyphicon-remove"></span> Delete</a>
-									</div>
-								</td>
-							</tr>
-							<tr>
-								<td>3</td>
-								<td>Blogs</td>
-								<td>Parent Blogs</td>
-								<td>News Cate</td>
-								<td>News Cate</td>
-								<td>News Cate</td>
-								<td class="text-center">
-									<div class="ui-group-buttons">
-										<a href="http://www.jquery2dotnet.com" class="btn btn-success" role="button">
-											<span class="glyphicon glyphicon-ok"></span> Edit</a>
-										<div class="or"></div>
-										<a href="http://www.jquery2dotnet.com" class="btn btn-danger" role="button">
-											<span class="glyphicon glyphicon-remove"></span> Delete</a>
-									</div>
-								</td>
-							</tr>
-							<tr>
-								<td>3</td>
-								<td>Blogs</td>
-								<td>Parent Blogs</td>
-								<td>News Cate</td>
-								<td>News Cate</td>
-								<td>News Cate</td>
-								<td class="text-center">
-									<div class="ui-group-buttons">
-										<a href="http://www.jquery2dotnet.com" class="btn btn-success" role="button">
-											<span class="glyphicon glyphicon-ok"></span> Edit</a>
-										<div class="or"></div>
-										<a href="http://www.jquery2dotnet.com" class="btn btn-danger" role="button">
-											<span class="glyphicon glyphicon-remove"></span> Delete</a>
-									</div>
-								</td>
-							</tr>
+
 
 						</table>
 					</div>
 					<!-- /Content -->
 
 					<!-- Sidebar -->
-					<div id="sidebar" class="4u">
+					<div id="sidebar" class="col-md-3">
 						<section>
 							<header>
 								<h2> Overall balance

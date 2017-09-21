@@ -1,12 +1,7 @@
 package dev.roysez.financemanager;
 
-import dev.roysez.financemanager.enums.TransactionType;
-import dev.roysez.financemanager.model.User;
-import dev.roysez.financemanager.model.Category;
-import dev.roysez.financemanager.model.Transaction;
-import dev.roysez.financemanager.repository.CategoryRepository;
-import dev.roysez.financemanager.repository.TransactionRepository;
-import dev.roysez.financemanager.repository.UserRepository;
+import dev.roysez.financemanager.model.*;
+import dev.roysez.financemanager.repository.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
@@ -15,6 +10,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 
+import java.util.Calendar;
 import java.util.Date;
 
 @SpringBootApplication
@@ -30,48 +26,53 @@ public class FinanceManagerApplication {
 	@Bean
 	public CommandLineRunner demo(TransactionRepository repository,
 								  CategoryRepository categoryRepository,
-								  UserRepository userRepository) {
+								  UserRepository userRepository,
+								  CreditRepository creditRepository,
+								  DepositRepository depositRepository
+								  ) {
 		return (args) -> {
 			// save a couple of customer)s
-			User user = new User();
-			user.setBalance(100000L).setUsername("Sergiy");
+			User user = new User().setBalance(100000L).setUsername("roysez");
+
 			userRepository.save(user);
 
-			Category category = new Category(1,"Csdas","test");
+			Category category = new Category(1,"Комуналка",100L);
+			Category category1 = new Category(2,"Фізруку",100L);
+			Category category2 = new Category(3,"Бурса",100L);
+			Category category3 = new Category(4,"Столовка",100L);
+
 			categoryRepository.save(category);
-			repository.save(new Transaction(1, TransactionType.TRANSACTION_EXPENSE,
-					100,new Date(),"Description",
-					category,user));
-			repository.save(new Transaction(2,TransactionType.TRANSACTION_EXPENSE,
-					100,new Date(),"Description" ,
-					category,user));
+			categoryRepository.save(category1);
+			categoryRepository.save(category2);
+			categoryRepository.save(category3);
 
-			repository.save(new Transaction(3,TransactionType.TRANSACTION_EXPENSE,
-					100,new Date(),"Description" ,
+			repository.save(new Transaction(1, Transaction.TransactionType.TRANSACTION_EXPENSE,
+					100,new Date(),"Витрати на комуналку",
 					category,user));
-			repository.save(new Transaction(4,TransactionType.TRANSACTION_EXPENSE,
-					100,new Date(),"Description" ,
-					category,user));
+			repository.save(new Transaction(2, Transaction.TransactionType.TRANSACTION_EXPENSE,
+					100,new Date(),"Забашляти за фізру",
+					category1,user));
+			repository.save(new Transaction(3, Transaction.TransactionType.TRANSACTION_INCOME,
+					100,new Date(),"Стіпуха прийшла",
+					category2,user));
+			repository.save(new Transaction(4, Transaction.TransactionType.TRANSACTION_EXPENSE,
+					100,new Date(),"Сходив в кормушку",
+					category2,user));
 
-			repository.save(new Transaction(5,TransactionType.TRANSACTION_EXPENSE,
-					100,new Date(),"Description" ,
-					category,user));
+			Calendar cal = Calendar.getInstance();
+			cal.set(2025,10,10);
+			Date date = cal.getTime();
+
+			Credit credit = new Credit().setAmountToPay(10000L)
+					.setDueDate(date).setUser(user);
+
+			creditRepository.save(credit);
+
+			Deposit deposit = new Deposit().setDescription("На машину").setPercentages(10).setSum(2000L).setUser(user);
+
+			depositRepository.save(deposit);
 
 
-			// fetch all customers
-			log.info("Customers found with findAll():");
-			log.info("-------------------------------");
-			for (Transaction transaction : repository.findAll()) {
-				log.info(transaction.toString());
-			}
-			log.info("");
-
-			// fetch an individual customer by ID
-			Transaction transaction = repository.findOne(1);
-			log.info("Customer found with findOne(1L):");
-			log.info("--------------------------------");
-			log.info(transaction.toString());
-			log.info("");
 
 
 		};

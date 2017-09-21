@@ -19,7 +19,7 @@ public class Category {
 
     String categoryName;
 
-    String description;
+    Long tax;
 
     public Category() {
 
@@ -27,8 +27,6 @@ public class Category {
 
     @Override
     public String toString() {
-        return "Category{" +
-                ", categoryName='" + categoryName + '\'' +
-                '}';
+        return categoryName;
     }
 }

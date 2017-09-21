@@ -23,6 +23,12 @@ public class User {
     @OneToMany(mappedBy = "user")
     List<Transaction> transactions;
 
+    @OneToMany(mappedBy = "user")
+    List<Credit> credits;
+
+    @OneToMany(mappedBy = "user")
+    List<Deposit> deposits;
+
     public User() {
 
     }

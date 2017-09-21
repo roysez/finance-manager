@@ -1,6 +1,5 @@
 package dev.roysez.financemanager.model;
 
-import dev.roysez.financemanager.enums.TransactionType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -33,6 +32,16 @@ public class Transaction {
 
     public Transaction() {
 
+    }
+
+    public enum TransactionType {
+        TRANSACTION_EXPENSE,
+        TRANSACTION_INCOME ;
+
+        @Override
+        public String toString() {
+            return this.name().equals("TRANSACTION_EXPENSE")?"Expense":"Income";
+        }
     }
 
     @Override
