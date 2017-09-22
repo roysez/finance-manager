@@ -26,6 +26,7 @@ public class Controller {
     @RequestMapping(value = {"","/"})
     public String homePage(Model model)
     {
+        
         return "index";
     }
 
