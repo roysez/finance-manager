@@ -7,6 +7,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.context.web.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 
@@ -15,7 +17,7 @@ import java.util.Date;
 
 @SpringBootApplication
 @ComponentScan
-public class FinanceManagerApplication {
+public class FinanceManagerApplication extends SpringBootServletInitializer {
 
 	private static final Logger log = LoggerFactory.getLogger(FinanceManagerApplication.class);
 
@@ -23,7 +25,13 @@ public class FinanceManagerApplication {
 		SpringApplication.run(FinanceManagerApplication.class, args);
 	}
 
-	@Bean
+
+	@Override
+	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+		return application.sources(FinanceManagerApplication.class);
+	}
+
+
 	public CommandLineRunner demo(TransactionRepository repository,
 								  CategoryRepository categoryRepository,
 								  UserRepository userRepository,

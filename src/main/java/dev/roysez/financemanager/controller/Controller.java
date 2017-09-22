@@ -6,9 +6,11 @@ import dev.roysez.financemanager.repository.CreditRepository;
 import dev.roysez.financemanager.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
+
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -21,12 +23,9 @@ public class Controller {
     @Autowired
     CreditRepository creditRepository;
 
-    @RequestMapping(value = "/")
-    public String homePage(ModelMap modelMap)
+    @RequestMapping(value = {"","/"})
+    public String homePage(Model model)
     {
-        User user = userRepository.findByUsername("roysez");
-        modelMap.put("list",user.getTransactions());
-        modelMap.put("user",user);
         return "index";
     }
 

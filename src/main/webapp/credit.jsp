@@ -1,29 +1,25 @@
 <!DOCTYPE HTML>
-<!--
-	Monochromed by TEMPLATED
-    templated.co @templatedco
-    Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
--->
-<html xmlns:th="http://www.thymeleaf.org">
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<html >
 <head>
 	<title>Finance Manager</title>
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 	<meta name="description" content="" />
 	<meta name="keywords" content="" />
 	<link href='http://fonts.googleapis.com/css?family=Oxygen:400,300,700' rel='stylesheet' type='text/css'/>
-	<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
-	<link rel="stylesheet" th:href="@{/css/progress.css}"/>
+	<link rel="stylesheet" href="<c:url value='css/bootstrap.min.css'/>" >
 	<!--[if lte IE 8]><script src="js/html5shiv.js"></script><![endif]-->
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-	<script th:src="@{/js/skel.min.js}"></script>
-	<script th:src="@{/js/skel-panels.min.js}"></script>
-	<script th:src="@{/js/init.js}"></script>
+	<script src="<c:url value='js/skel.min.js'/>"></script>
+	<script src="<c:url value='js/skel-panels.min.js'/>"></script>
+	<script src="<c:url value='js/init.js'/>"></script>
 	<noscript>
-		<link rel="stylesheet" th:href="@{/css/skel-noscript.css}" />
-		<link rel="stylesheet" th:href="@{/css/style.css}" />
+		<link rel="stylesheet" href="<c:url value='css/skel-noscript.css'/>" />
+		<link rel="stylesheet" href="<c:url value='css/style.css'/>" />
 	</noscript>
-	<!--[if lte IE 8]><link rel="stylesheet" th:href="@{/css/ie/v8.css}" /><![endif]-->
-	<!--[if lte IE 9]><link rel="stylesheet" th:href="@{/css/ie/v9.css}" /><![endif]-->
+	<!--[if lte IE 8]><link rel="stylesheet" href="<c:url value='css/ie/v8.css'/>" /><![endif]-->
+	<!--[if lte IE 9]><link rel="stylesheet" href="<c:url value='css/ie/v9.css'/>" /><![endif]-->
 </head>
 	<body class="homepage">
 
@@ -38,23 +34,24 @@
 					</div>
 				
 				<!-- Nav -->
+				<!-- Nav -->
 				<nav id="nav">
 					<ul>
-						<li class="active">
-							<a th:href="@{/}">
-								<div class="icon-block"><img th:src="@{/images/icons/if_cash_register_17219.png}" class="icon" alt=""/></div>
+						<li >
+							<a href="<c:url value='/'/>">
+								<div class="icon-block"><img src="<c:url value='/images/icons/if_cash_register_17219.png'/>" class="icon" alt=""/></div>
 								<div class="text-block">Transactions</div>
 							</a>
 						</li>
 						<li >
-							<a th:href="@{/deposits}">
-								<div class="icon-block"><img th:src="@{/images/icons/if_piggy_bank_58877.png}" class="icon" alt=""/></div>
+							<a href="<c:url value='/deposits'/>">
+								<div class="icon-block"><img src="<c:url value='/images/icons/if_piggy_bank_58877.png'/>" class="icon" alt=""/></div>
 								<div class="text-block">Deposit</div>
 							</a>
 						</li>
-						<li>
-							<a th:href="@{/credits}">
-								<div class="icon-block"><img th:src="@{/images/icons/if_03_61467.png}" class="icon" alt=""/></div>
+						<li class="active">
+							<a href="<c:url value='/credits'/>">
+								<div class="icon-block"><img src="<c:url value='/images/icons/if_03_61467.png'/>" class="icon" alt=""/></div>
 								<div class="text-block">Credit</div>
 							</a>
 						</li>

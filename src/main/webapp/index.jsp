@@ -1,55 +1,58 @@
 <!DOCTYPE HTML>
-<!--/*--><!--@thymesVar id="controller" type="dev.roysez.financemanager.controller.Controller"--><!--*/-->
-<html xmlns:th="http://www.thymeleaf.org">
+
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
+<html >
 	<head>
 		<title>Finance Manager</title>
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 		<meta name="description" content="" />
 		<meta name="keywords" content="" />
 		<link href='http://fonts.googleapis.com/css?family=Oxygen:400,300,700' rel='stylesheet' type='text/css'/>
-		<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
+		<link rel="stylesheet" href="<c:url value='css/bootstrap.min.css'/>" >
 		<!--[if lte IE 8]><script src="js/html5shiv.js"></script><![endif]-->
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-		<script th:src="@{/js/skel.min.js}"></script>
-		<script th:src="@{/js/skel-panels.min.js}"></script>
-		<script th:src="@{/js/init.js}"></script>
+		<script src="<c:url value='js/skel.min.js'/>"></script>
+		<script src="<c:url value='js/skel-panels.min.js'/>"></script>
+		<script src="<c:url value='js/init.js'/>"></script>
 		<noscript>
-			<link rel="stylesheet" th:href="@{/css/skel-noscript.css}" />
-			<link rel="stylesheet" th:href="@{/css/style.css}" />
+			<link rel="stylesheet" href="<c:url value='css/skel-noscript.css'/>" />
+			<link rel="stylesheet" href="<c:url value='css/style.css'/>" />
 		</noscript>
-		<!--[if lte IE 8]><link rel="stylesheet" th:href="@{/css/ie/v8.css}" /><![endif]-->
-		<!--[if lte IE 9]><link rel="stylesheet" th:href="@{/css/ie/v9.css}" /><![endif]-->
+		<!--[if lte IE 8]><link rel="stylesheet" href="<c:url value='css/ie/v8.css'/>" /><![endif]-->
+		<!--[if lte IE 9]><link rel="stylesheet" href="<c:url value='css/ie/v9.css'/>" /><![endif]-->
 	</head>
 	<body class="homepage">
 
 	<!-- Header -->
 		<div id="header">
 			<div class="container">
-					
+
 				<!-- Logo -->
 					<div id="logo">
 						<h1><a href="#">Finance manager</a></h1>
 						<span>manage your spendings easily</span>
 					</div>
-				
+
 				<!-- Nav -->
 					<nav id="nav">
 						<ul>
 							<li class="active">
-								<a th:href="@{/}">
-								<div class="icon-block"><img th:src="@{/images/icons/if_cash_register_17219.png}" class="icon" alt=""/></div>
+								<a href="<c:url value='/'/>">
+								<div class="icon-block"><img src="<c:url value='/images/icons/if_cash_register_17219.png'/>" class="icon" alt=""/></div>
 								<div class="text-block">Transactions</div>
 								</a>
 							</li>
 							<li >
-								<a th:href="@{/deposits}">
-								<div class="icon-block"><img th:src="@{/images/icons/if_piggy_bank_58877.png}" class="icon" alt=""/></div>
+								<a href="<c:url value='/deposits'/>">
+								<div class="icon-block"><img src="<c:url value='/images/icons/if_piggy_bank_58877.png'/>" class="icon" alt=""/></div>
 								<div class="text-block">Deposit</div>
 								</a>
 							</li>
 							<li>
-								<a th:href="@{/credits}">
-								<div class="icon-block"><img th:src="@{/images/icons/if_03_61467.png}" class="icon" alt=""/></div>
+								<a href="<c:url value='/credits'/>">
+								<div class="icon-block"><img src="<c:url value='/images/icons/if_03_61467.png'/>" class="icon" alt=""/></div>
 								<div class="text-block">Credit</div>
 								</a>
 							</li>
@@ -82,23 +85,23 @@
 								<th class="text-center">Action</th>
 							</tr>
 							</thead>
-							<tr th:each="transaction : ${list}">
-								<td th:text="${transaction.id}"></td>
-								<td th:text="${transaction.trType}">News</td>
-								<td th:text="${transaction.description}">News Cate</td>
-								<td th:text="${transaction.sum}">News Cate</td>
-								<td th:text="${transaction.category}">News Cate</td>
-								<td th:text="${transaction.date}">News Cate</td>
-								<td class="text-center">
-									<div class="ui-group-buttons">
-										<a href="http://www.jquery2dotnet.com" class="btn btn-success" role="button">
-											<span class="glyphicon glyphicon-ok"></span> Edit</a>
-										<div class="or"></div>
-										<a href="http://www.jquery2dotnet.com" class="btn btn-danger" role="button">
-											<span class="glyphicon glyphicon-remove"></span> Delete</a>
-									</div>
-								</td>
-							</tr>
+							<%--<tr th:each="transaction : ${list}">--%>
+								<%--<td th:text="${transaction.id}"></td>--%>
+								<%--<td th:text="${transaction.trType}">News</td>--%>
+								<%--<td th:text="${transaction.description}">News Cate</td>--%>
+								<%--<td th:text="${transaction.sum}">News Cate</td>--%>
+								<%--<td th:text="${transaction.category}">News Cate</td>--%>
+								<%--<td th:text="${transaction.date}">News Cate</td>--%>
+								<%--<td class="text-center">--%>
+									<%--<div class="ui-group-buttons">--%>
+										<%--<a href="http://www.jquery2dotnet.com" class="btn btn-success" role="button">--%>
+											<%--<span class="glyphicon glyphicon-ok"></span> Edit</a>--%>
+										<%--<div class="or"></div>--%>
+										<%--<a href="http://www.jquery2dotnet.com" class="btn btn-danger" role="button">--%>
+											<%--<span class="glyphicon glyphicon-remove"></span> Delete</a>--%>
+									<%--</div>--%>
+								<%--</td>--%>
+							<%--</tr>--%>
 
 
 						</table>
@@ -110,13 +113,13 @@
 						<section>
 							<header>
 								<h2> Overall balance
-									<img th:src="@{/images/icons/if_history_58875.png}" class="icon"
+									<img src="<c:url value='/images/icons/if_history_58875.png'/>" class="icon"
 										 style="margin-bottom: -10px" alt=""/></h2>
 								<span class="byline">Here you can review your balance</span>
 
 							</header>
 							<h2 class="balance">
-								<img th:src="@{/images/icons/if_credit_card_17221.png}" class="icon" style="margin-bottom: -10px" alt=""/>
+								<img src="<c:url value='/images/icons/if_credit_card_17221.png'/>" class="icon" style="margin-bottom: -10px" alt=""/>
 								$100.000
 							</h2>
 							<br/>
