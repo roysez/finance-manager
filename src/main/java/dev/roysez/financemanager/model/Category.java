@@ -3,18 +3,13 @@ package dev.roysez.financemanager.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+
 
 @Data
 @AllArgsConstructor
-@Entity
 public class Category {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+
     Integer id;
 
     String categoryName;
@@ -23,6 +18,29 @@ public class Category {
 
     public Category() {
 
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+
+        Category category = (Category) o;
+
+        if (id != null ? !id.equals(category.id) : category.id != null) return false;
+        if (categoryName != null ? !categoryName.equals(category.categoryName) : category.categoryName != null)
+            return false;
+        return tax != null ? tax.equals(category.tax) : category.tax == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + (id != null ? id.hashCode() : 0);
+        result = 31 * result + (categoryName != null ? categoryName.hashCode() : 0);
+        result = 31 * result + (tax != null ? tax.hashCode() : 0);
+        return result;
     }
 
     @Override

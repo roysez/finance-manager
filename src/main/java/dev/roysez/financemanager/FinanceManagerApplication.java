@@ -1,7 +1,7 @@
 package dev.roysez.financemanager;
 
 import dev.roysez.financemanager.model.*;
-import dev.roysez.financemanager.repository.*;
+import dev.roysez.financemanager.service.TransactionService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
@@ -12,8 +12,7 @@ import org.springframework.boot.context.web.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 
-import java.util.Calendar;
-import java.util.Date;
+import java.util.*;
 
 @SpringBootApplication
 @ComponentScan
@@ -32,53 +31,73 @@ public class FinanceManagerApplication extends SpringBootServletInitializer {
 	}
 
 
-	public CommandLineRunner demo(TransactionRepository repository,
-								  CategoryRepository categoryRepository,
-								  UserRepository userRepository,
-								  CreditRepository creditRepository,
-								  DepositRepository depositRepository
-								  ) {
+	@Bean
+	public CommandLineRunner demoFile(TransactionService transactionService
+	) {
+		return (args) -> {
+			Category category = new Category(1,"Комуналка",100L);
+			Category category1 = new Category(2,"Фізруку",100L);
+			Category category2 = new Category(3,"Бурса",100L);
+			Category category3 = new Category(4,"Столовка",100L);
+
+			Transaction transaction = new Transaction(1, Transaction.TransactionType.TRANSACTION_EXPENSE,
+					100, new Date(), "Витрати на комуналку",
+					category);
+
+			Transaction transaction1 = new Transaction(2, Transaction.TransactionType.TRANSACTION_EXPENSE,
+					100, new Date(), "Забашляти за фізру",
+					category1);
+			Set<Transaction> transactions = transactionService.findAll();
+			if (transactions.isEmpty()) {
+				transactions = new TreeSet<>();
+			}
+			transactions.add(transaction);
+			transactions.add(transaction1);
+
+			transactionService.save(transactions);
+
+		};
+	}
+
+
+	public CommandLineRunner demo() {
 		return (args) -> {
 			// save a couple of customer)s
 			User user = new User().setBalance(100000L).setUsername("roysez");
 
-			userRepository.save(user);
+
 
 			Category category = new Category(1,"Комуналка",100L);
 			Category category1 = new Category(2,"Фізруку",100L);
 			Category category2 = new Category(3,"Бурса",100L);
 			Category category3 = new Category(4,"Столовка",100L);
 
-			categoryRepository.save(category);
-			categoryRepository.save(category1);
-			categoryRepository.save(category2);
-			categoryRepository.save(category3);
 
-			repository.save(new Transaction(1, Transaction.TransactionType.TRANSACTION_EXPENSE,
+
+			new Transaction(1, Transaction.TransactionType.TRANSACTION_EXPENSE,
 					100,new Date(),"Витрати на комуналку",
-					category,user));
-			repository.save(new Transaction(2, Transaction.TransactionType.TRANSACTION_EXPENSE,
+					category  );
+			new Transaction(2, Transaction.TransactionType.TRANSACTION_EXPENSE,
 					100,new Date(),"Забашляти за фізру",
-					category1,user));
-			repository.save(new Transaction(3, Transaction.TransactionType.TRANSACTION_INCOME,
+					category1  );
+			new Transaction(3, Transaction.TransactionType.TRANSACTION_INCOME,
 					100,new Date(),"Стіпуха прийшла",
-					category2,user));
-			repository.save(new Transaction(4, Transaction.TransactionType.TRANSACTION_EXPENSE,
+					category2  );
+			new Transaction(4, Transaction.TransactionType.TRANSACTION_EXPENSE,
 					100,new Date(),"Сходив в кормушку",
-					category2,user));
+					category2  );
 
 			Calendar cal = Calendar.getInstance();
 			cal.set(2025,10,10);
 			Date date = cal.getTime();
 
 			Credit credit = new Credit().setAmountToPay(10000L)
-					.setDueDate(date).setUser(user);
+					.setDueDate(date);
 
-			creditRepository.save(credit);
 
 			Deposit deposit = new Deposit().setDescription("На машину").setPercentages(10).setSum(2000L).setUser(user);
 
-			depositRepository.save(deposit);
+
 
 
 
