@@ -36,6 +36,7 @@ public class Transaction implements Comparable<Transaction> {
         TRANSACTION_EXPENSE,
         TRANSACTION_INCOME ;
 
+
         @Override
         public String toString() {
             return this.name().equals("TRANSACTION_EXPENSE")?"Expense":"Income";
@@ -48,13 +49,12 @@ public class Transaction implements Comparable<Transaction> {
         if (o == null || getClass() != o.getClass()) return false;
 
         Transaction that = (Transaction) o;
-        if(id.equals(that.id)) return true;
         if (id != null ? !id.equals(that.id) : that.id != null) return false;
         if (trType != that.trType) return false;
         if (sum != null ? !sum.equals(that.sum) : that.sum != null) return false;
-        if (date != null ? !date.equals(that.date) : that.date != null) return false;
-        if (description != null ? !description.equals(that.description) : that.description != null) return false;
-        return category != null ? category.equals(that.category) : that.category == null;
+        return (description != null ? description.equals(that.description) :
+                that.description == null) && (category != null ? category.equals(that.category) :
+                that.category == null);
     }
 
     @Override
@@ -63,10 +63,9 @@ public class Transaction implements Comparable<Transaction> {
         result = 31 * result + (id != null ? id.hashCode() : 0);
         result = 31 * result + (trType != null ? trType.hashCode() : 0);
         result = 31 * result + (sum != null ? sum.hashCode() : 0);
-        result = 31 * result + (date != null ? date.hashCode() : 0);
         result = 31 * result + (description != null ? description.hashCode() : 0);
         result = 31 * result + (category != null ? category.hashCode() : 0);
-        return 1;
+        return result;
     }
 
     @Override

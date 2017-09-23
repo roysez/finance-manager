@@ -44,17 +44,14 @@ public class FinanceManagerApplication extends SpringBootServletInitializer {
 					100, new Date(), "Витрати на комуналку",
 					category);
 
-			Transaction transaction1 = new Transaction(2, Transaction.TransactionType.TRANSACTION_EXPENSE,
+			Transaction transaction1 = new Transaction(4, Transaction.TransactionType.TRANSACTION_EXPENSE,
 					100, new Date(), "Забашляти за фізру",
 					category1);
-			Set<Transaction> transactions = transactionService.findAll();
-			if (transactions.isEmpty()) {
-				transactions = new TreeSet<>();
-			}
-			transactions.add(transaction);
-			transactions.add(transaction1);
 
-			transactionService.save(transactions);
+
+			transactionService.save(transaction);
+			transactionService.save(transaction1);
+			System.out.println(transactionService.findAll().size());
 
 		};
 	}

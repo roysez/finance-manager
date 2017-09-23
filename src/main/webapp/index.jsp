@@ -85,23 +85,26 @@
 								<th class="text-center">Action</th>
 							</tr>
 							</thead>
-							<%--<tr th:each="transaction : ${list}">--%>
-								<%--<td th:text="${transaction.id}"></td>--%>
-								<%--<td th:text="${transaction.trType}">News</td>--%>
-								<%--<td th:text="${transaction.description}">News Cate</td>--%>
-								<%--<td th:text="${transaction.sum}">News Cate</td>--%>
-								<%--<td th:text="${transaction.category}">News Cate</td>--%>
-								<%--<td th:text="${transaction.date}">News Cate</td>--%>
-								<%--<td class="text-center">--%>
-									<%--<div class="ui-group-buttons">--%>
-										<%--<a href="http://www.jquery2dotnet.com" class="btn btn-success" role="button">--%>
-											<%--<span class="glyphicon glyphicon-ok"></span> Edit</a>--%>
-										<%--<div class="or"></div>--%>
-										<%--<a href="http://www.jquery2dotnet.com" class="btn btn-danger" role="button">--%>
-											<%--<span class="glyphicon glyphicon-remove"></span> Delete</a>--%>
-									<%--</div>--%>
-								<%--</td>--%>
-							<%--</tr>--%>
+							<c:forEach items="${listOfTransactions}" var="item">
+								<tr class='clickable-row' />
+									<td>${item.getId()}</td>
+									<td>${item.getTrType().toString()}</td>
+									<td>${item.getDescription()}</td>
+									<td>${item.getSum()}</td>
+									<td>${item.getCategory()}</td>
+									<td>${item.getDate().toString()}</td>
+									<td class="text-center">
+										<div class="ui-group-buttons">
+										<a href="http://www.jquery2dotnet.com" class="btn btn-success" role="button">
+										<span class="glyphicon glyphicon-ok"></span> Edit</a>
+										<div class="or"></div>
+										<a href="http://www.jquery2dotnet.com" class="btn btn-danger" role="button">
+										<span class="glyphicon glyphicon-remove"></span> Delete</a>
+										</div>
+									</td>
+								</tr>
+
+							</c:forEach>
 
 
 						</table>

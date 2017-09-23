@@ -12,8 +12,6 @@ import java.util.Date;
 @Accessors(chain = true)
 public class Deposit {
 
-
-
     Long sum;
 
     Long income;

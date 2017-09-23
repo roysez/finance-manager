@@ -7,7 +7,7 @@ import java.util.Set;
 
 public interface TransactionService {
 
-    Transaction save(Transaction entity);
+    boolean save(Transaction entity);
 
     Set<Transaction> save(Set<Transaction> entities) throws IOException;
 
