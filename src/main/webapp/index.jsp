@@ -2,27 +2,96 @@
 
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <html >
 	<head>
 		<title>Finance Manager</title>
+
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 		<meta name="description" content="" />
 		<meta name="keywords" content="" />
+
 		<link href='http://fonts.googleapis.com/css?family=Oxygen:400,300,700' rel='stylesheet' type='text/css'/>
-		<link rel="stylesheet" href="<c:url value='css/bootstrap.min.css'/>" >
+
+		<link rel="stylesheet" href="<c:url value='/css/bootstrap.min.css'/>" >
+
 		<!--[if lte IE 8]><script src="js/html5shiv.js"></script><![endif]-->
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-		<script src="<c:url value='js/skel.min.js'/>"></script>
-		<script src="<c:url value='js/skel-panels.min.js'/>"></script>
-		<script src="<c:url value='js/init.js'/>"></script>
-		<noscript>
-			<link rel="stylesheet" href="<c:url value='css/skel-noscript.css'/>" />
-			<link rel="stylesheet" href="<c:url value='css/style.css'/>" />
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+		<script src="<c:url value='/js/skel.min.js'/>"></script>
+		<script src="<c:url value='/js/skel-panels.min.js'/>"></script>
+		<script src="<c:url value='/js/init.js'/>"></script>
+
+
+
+		<noscript>s
+			<link rel="stylesheet" href="/css/skel-noscript.cs'/>" />
+			<link rel="stylesheet" href="/css/style.css" />
 		</noscript>
-		<!--[if lte IE 8]><link rel="stylesheet" href="<c:url value='css/ie/v8.css'/>" /><![endif]-->
-		<!--[if lte IE 9]><link rel="stylesheet" href="<c:url value='css/ie/v9.css'/>" /><![endif]-->
+
+		<!--[if lte IE 8]><link rel="stylesheet" href="<c:url value='/css/ie/v8.css'/>" /><![endif]-->
+		<!--[if lte IE 9]><link rel="stylesheet" href="<c:url value='/css/ie/v9.css'/>" /><![endif]-->
+
+
+		<!-- For popup ! -->
+		<link rel='stylesheet prefetch' href='http://cdn.jsdelivr.net/jquery.magnific-popup/1.0.0/magnific-popup.css'>
+
+		<style>
+
+			.white-popup {
+				position: relative;
+				background: #FFF;
+				padding: 40px;
+				width: auto;
+				max-width: 500px;
+				margin: 20px auto;
+				transition: 1s all;
+			}
+
+			.mfp-bg {}
+
+			.mfp-fade.mfp-bg {
+				opacity: 0;
+				-webkit-transition: all 0.15s ease-out;
+				-moz-transition: all 0.15s ease-out;
+				transition: all 0.15s ease-out;
+			}
+
+
+			/* overlay animate in */
+
+			.mfp-fade.mfp-bg.mfp-ready {
+				opacity: 0.8;
+			}
+
+
+			/* overlay animate out */
+
+			.mfp-fade.mfp-bg.mfp-removing {
+				opacity: 0;
+			}
+
+			.mfp-fade.mfp-wrap .mfp-content {
+				opacity: 0;
+				transition: all 0.4s ease-out;
+			}
+
+			.mfp-fade.mfp-wrap.mfp-ready .mfp-content {
+				opacity: 1;
+			}
+
+			.mfp-fade.mfp-wrap.mfp-removing .mfp-content {
+				opacity: 0;
+			}
+		</style>
+
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
+		<!-- close for popup -->
+
+
 	</head>
+
 	<body class="homepage">
 
 	<!-- Header -->
@@ -66,7 +135,14 @@
 
 	<!-- Main -->
 		<div id="main">
-
+			<c:if test="${error!=null}">
+				<c:if test="${!error.isEmpty()}">
+				<div class="alert alert-danger">
+					<p>${error}</p>
+				</div>
+				</c:if>
+			</c:if>
+			<!-- main window -->
 			<div class="container-fluid">
 
 				<div class="row">
@@ -114,29 +190,30 @@
 					<!-- Sidebar -->
 					<div id="sidebar" class="col-md-3">
 						<section>
+							<!-- Header at side bar -->
 							<header>
 								<h2> Overall balance
 									<img src="<c:url value='/images/icons/if_history_58875.png'/>" class="icon"
 										 style="margin-bottom: -10px" alt=""/></h2>
-								<span class="byline">Here you can review your balance</span>
+								<span class="byline"> Welcome, <i><strong>${user.getFirstName()} ${user.getLastName()}</strong></i>
+									<br>
+									Here you can review your balance</span>
 
 							</header>
+							<!-- Balance -->
 							<h2 class="balance">
 								<img src="<c:url value='/images/icons/if_credit_card_17221.png'/>" class="icon" style="margin-bottom: -10px" alt=""/>
-								$100.000
+								$ ${user.getBalance()}
 							</h2>
 							<br/>
-							<!--<p>Donec leo, vivamus fermentum nibh in augue praesent a lacus at urna congue rutrum. Maecenas luctus lectus at sapien. Consectetuer adipiscing elit.</p>-->
-							<!--<ul class="default">-->
-								<!--<li><a href="#">Pellentesque quis lectus gravida blandit.</a></li>-->
-								<!--<li><a href="#">Lorem ipsum consectetuer adipiscing elit.</a></li>-->
-								<!--<li><a href="#">Phasellus nec nibh pellentesque congue.</a></li>-->
-								<!--<li><a href="#">Cras aliquam risus pellentesque pharetra.</a></li>-->
-								<!--<li><a href="#">Duis non metus commodo euismod lobortis.</a></li>-->
-								<!--<li><a href="#">Lorem ipsum dolor adipiscing elit.</a></li>-->
-							<!--</ul>-->
+							<!-- Buttons -->
 							<button type="button" class="btn btn-success btn-lg btn3d">Record income</button>
 							<button type="button" class="btn btn-danger btn-lg btn3d">Record the expense</button>
+
+
+							<button type="button" class="btn btn-success btn-lg btn3d">
+								<a href="#test-popup" class="btn open-popup-link">Add new category</a>
+							</button>
 
 						</section>
 					</div>
@@ -145,12 +222,57 @@
 				</div>
 
 			</div>
+			<!-- main window close -->
 
+			<!-- Add category popup-->
+			<div id="test-popup" class="white-popup mfp-hide">
+				<div >
+					<h4>Add category:</h4>
+					<div class="panel panel-default">
+						<div class="panel-body form-horizontal payment-form">
+							<form:form action="categories/"  modelAttribute="category" method="POST" class="category-form" >
+								<div class="form-group">
+
+									<label for="categoryName" class="col-sm-3 control-label" >Category name</label>
+									<div class="col-sm-12">
+
+										<form:input placeholder="Name of a new category"
+													path="categoryName" id="categoryName" type="text"
+													class="form-control" name="categoryName" />
+									</div>
+								</div>
+							<div class="form-group">
+								<label for="tax" class="col-sm-3 control-label">Tax</label>
+								<div class="col-sm-12">
+									<form:input placeholder="Tax"
+												path="tax" id="tax" type="text"
+												class="form-control" name="tax"  />
+								</div>
+							</div>
+
+							<div class="form-group">
+								<div class="col-sm-12 text-right">
+									<button type="submit" class="btn btn-default preview-add-button">
+										<span class="glyphicon glyphicon-plus"></span> Add new category
+									</button>
+								</div>
+							</div>
+							</form:form>
+						</div>
+					</div>
+				</div> <!-- / panel preview -->
+			</div>
+			<!-- Add category popup close-->
+			<!-- For popup -->
+			<script src='http://code.jquery.com/jquery-2.2.4.min.js'></script>
+			<script src='http://cdn.jsdelivr.net/jquery.magnific-popup/1.0.0/jquery.magnific-popup.min.js'></script>
+			<script src="<c:url value='/js/popup-show.js'/>"></script>
+			<!--  For popup close -->
 </div>
 	<!-- Copyright -->
 		<div id="copyright">
 			<div class="container">
-				Design: <a href="http://templated.co">TEMPLATED</a> Images: <a href="http://unsplash.com">Unsplash</a> (<a href="http://unsplash.com/cc0">CC0</a>)
+				Design: <a href="#">roysez</a>
 			</div>
 		</div>
 

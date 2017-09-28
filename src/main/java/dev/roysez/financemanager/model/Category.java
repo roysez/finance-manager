@@ -2,13 +2,18 @@ package dev.roysez.financemanager.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-
+import lombok.experimental.Accessors;
 
 
 @Data
 @AllArgsConstructor
-public class Category {
+@Accessors(chain = true)
+public class Category implements Comparable<Category> {
 
+    @Override
+    public int compareTo(Category o) {
+        return this.id-o.id;
+    }
 
     Integer id;
 
@@ -45,6 +50,10 @@ public class Category {
 
     @Override
     public String toString() {
-        return categoryName;
+        return "Category{" +
+                "id=" + id +
+                ", categoryName='" + categoryName + '\'' +
+                ", tax=" + tax +
+                '}';
     }
 }

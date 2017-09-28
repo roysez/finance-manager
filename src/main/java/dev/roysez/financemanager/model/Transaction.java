@@ -2,6 +2,7 @@ package dev.roysez.financemanager.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.experimental.Accessors;
 
 
 import java.util.Date;
@@ -9,6 +10,7 @@ import java.util.Date;
 
 @Data
 @AllArgsConstructor
+@Accessors(chain = true)
 public class Transaction implements Comparable<Transaction> {
 
     @Override

@@ -1,7 +1,9 @@
 package dev.roysez.financemanager;
 
 import dev.roysez.financemanager.model.*;
+import dev.roysez.financemanager.service.CategoryService;
 import dev.roysez.financemanager.service.TransactionService;
+import dev.roysez.financemanager.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
@@ -32,13 +34,15 @@ public class FinanceManagerApplication extends SpringBootServletInitializer {
 
 
 	@Bean
-	public CommandLineRunner demoFile(TransactionService transactionService
+	public CommandLineRunner demoFile(TransactionService transactionService,UserService userService,
+									  CategoryService categoryService
 	) {
 		return (args) -> {
 			Category category = new Category(1,"Комуналка",100L);
 			Category category1 = new Category(2,"Фізруку",100L);
 			Category category2 = new Category(3,"Бурса",100L);
 			Category category3 = new Category(4,"Столовка",100L);
+
 
 			Transaction transaction = new Transaction(1, Transaction.TransactionType.TRANSACTION_EXPENSE,
 					100, new Date(), "Витрати на комуналку",
@@ -49,8 +53,21 @@ public class FinanceManagerApplication extends SpringBootServletInitializer {
 					category1);
 
 
+			categoryService.save(category);
+			categoryService.save(category1);
+			categoryService.save(category2);
+			categoryService.save(category3);
+
 			transactionService.save(transaction);
 			transactionService.save(transaction1);
+
+			User user = new User().setBalance(100000L)
+					.setFirstName("Sergiy")
+					.setLastName("Balukh")
+					.setId(1);
+
+			// userService.saveUser(user);
+
 			System.out.println(transactionService.findAll().size());
 
 		};
@@ -60,7 +77,6 @@ public class FinanceManagerApplication extends SpringBootServletInitializer {
 	public CommandLineRunner demo() {
 		return (args) -> {
 			// save a couple of customer)s
-			User user = new User().setBalance(100000L).setUsername("roysez");
 
 
 
@@ -92,7 +108,7 @@ public class FinanceManagerApplication extends SpringBootServletInitializer {
 					.setDueDate(date);
 
 
-			Deposit deposit = new Deposit().setDescription("На машину").setPercentages(10).setSum(2000L).setUser(user);
+			Deposit deposit = new Deposit().setDescription("На машину").setPercentages(10).setSum(2000L);
 
 
 

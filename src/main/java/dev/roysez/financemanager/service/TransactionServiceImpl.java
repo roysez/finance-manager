@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 @Service
 public class TransactionServiceImpl implements TransactionService {
 
-    private final String fileDest = "C:\\Users\\roysez\\IdeaProjects\\finance-manager\\documents\\transactions.txt";
+    private final String fileDest = "C:\\Users\\roysez\\IdeaProjects\\finance-manager\\documents\\transactions.json";
 
     private final ObjectMapper mapper = new ObjectMapper();
 
@@ -49,7 +49,7 @@ public class TransactionServiceImpl implements TransactionService {
             mapper.writeValue(new File(fileDest),entities);
             return entities;
 
-        } catch (IOException e) {
+        } catch (Throwable e) {
             e.printStackTrace();
             return Collections.emptySet();
         }

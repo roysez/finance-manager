@@ -15,15 +15,13 @@ public class User {
 
     Integer id;
 
-    String username;
+    String firstName;
+
+    String lastName;
 
     Long balance;
 
-    List<Transaction> transactions;
 
-    List<Credit> credits;
-
-    List<Deposit> deposits;
 
     public User() {
 
@@ -33,7 +31,7 @@ public class User {
     public String toString() {
         return "User{" +
                 "id=" + id +
-                ", username='" + username + '\'' +
+                ", username='" + firstName + " " + lastName + '\'' +
                 ", balance=" + balance +
                 '}';
     }
