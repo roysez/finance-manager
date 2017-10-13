@@ -31,6 +31,14 @@ public class TransactionServiceImpl implements TransactionService {
         if(list.isEmpty())
             list = new TreeSet<>();
 
+        try {
+            entity.setId(list.stream()
+                    .reduce((first, second) -> second)
+                    .orElseThrow(ArrayIndexOutOfBoundsException::new)
+                    .getId() + 1);
+        } catch (IndexOutOfBoundsException e) {
+            entity.setId(0);
+        }
 
         boolean result = list.add(entity);
         log.info("Transaction entity " + (result?"saved":"already exist") + " - {}" ,entity);

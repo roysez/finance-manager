@@ -12,7 +12,7 @@ public class Category implements Comparable<Category> {
 
     @Override
     public int compareTo(Category o) {
-        return this.id-o.id;
+        return this.categoryName.hashCode() - o.categoryName.hashCode();
     }
 
     Integer id;
@@ -33,27 +33,20 @@ public class Category implements Comparable<Category> {
 
         Category category = (Category) o;
 
-        if (id != null ? !id.equals(category.id) : category.id != null) return false;
-        if (categoryName != null ? !categoryName.equals(category.categoryName) : category.categoryName != null)
-            return false;
-        return tax != null ? tax.equals(category.tax) : category.tax == null;
+        return categoryName.equals(category.categoryName);
     }
 
     @Override
     public int hashCode() {
         int result = super.hashCode();
-        result = 31 * result + (id != null ? id.hashCode() : 0);
-        result = 31 * result + (categoryName != null ? categoryName.hashCode() : 0);
-        result = 31 * result + (tax != null ? tax.hashCode() : 0);
+        result = 31 * result + categoryName.hashCode();
         return result;
     }
 
     @Override
     public String toString() {
-        return "Category{" +
-                "id=" + id +
-                ", categoryName='" + categoryName + '\'' +
-                ", tax=" + tax +
-                '}';
+
+        return  categoryName + " [" +tax + "%]";
+
     }
 }

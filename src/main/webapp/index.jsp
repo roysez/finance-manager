@@ -167,7 +167,7 @@
 									<td>${item.getTrType().toString()}</td>
 									<td>${item.getDescription()}</td>
 									<td>${item.getSum()}</td>
-									<td>${item.getCategory()}</td>
+									<td>${item.getCategory().getCategoryName()}</td>
 									<td>${item.getDate().toString()}</td>
 									<td class="text-center">
 										<div class="ui-group-buttons">
@@ -208,11 +208,13 @@
 							<br/>
 							<!-- Buttons -->
 							<button type="button" class="btn btn-success btn-lg btn3d">Record income</button>
-							<button type="button" class="btn btn-danger btn-lg btn3d">Record the expense</button>
+							<button type="button" class="btn btn-danger btn-lg btn3d">
+								<a href="#expense-popup" class="btn open-popup-link">Record the expense</a>
+							</button>
 
 
 							<button type="button" class="btn btn-success btn-lg btn3d">
-								<a href="#test-popup" class="btn open-popup-link">Add new category</a>
+								<a href="#category-popup" class="btn open-popup-link">Add new category</a>
 							</button>
 
 						</section>
@@ -224,8 +226,63 @@
 			</div>
 			<!-- main window close -->
 
+
+			<!-- Add expense popup-->
+			<div id="expense-popup" class="white-popup mfp-hide">
+				<div >
+					<h4>Add expense:</h4>
+					<div class="panel panel-default">
+						<div class="panel-body form-horizontal payment-form">
+							<form:form action="transactions/expenses"  modelAttribute="transaction" method="POST" class="transaction-form" >
+								<div class="form-group">
+
+									<label for="categoryName" class="col-sm-3 control-label" >Sum:</label>
+									<div class="col-sm-12">
+
+										<form:input placeholder="Sum:"
+													path="sum" id="sum" type="text"
+													class="form-control" name="sum" />
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="tax" class="col-sm-3 control-label">Description:</label>
+									<div class="col-sm-12">
+										<form:input placeholder="Description:"
+													path="description" id="description" type="text"
+													class="form-control" name="description"  />
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="tax" class="col-sm-3 control-label">Category:</label>
+									<div class="col-sm-12">
+
+										<select name="selectedCategory">
+											<c:forEach items="${categoriesList}" var="object">
+												<option >${object.getCategoryName()}</option>
+											</c:forEach>
+
+											</select>
+
+
+									</div>
+								</div>
+
+								<div class="form-group">
+									<div class="col-sm-12 text-right">
+										<button type="submit" class="btn btn-default preview-add-button">
+											<span class="glyphicon glyphicon-plus"></span> Add new expense
+										</button>
+									</div>
+								</div>
+							</form:form>
+						</div>
+					</div>
+				</div> <!-- / panel preview -->
+			</div>
+			<!-- Add expense popup close-->
+
 			<!-- Add category popup-->
-			<div id="test-popup" class="white-popup mfp-hide">
+			<div id="category-popup" class="white-popup mfp-hide">
 				<div >
 					<h4>Add category:</h4>
 					<div class="panel panel-default">
@@ -263,6 +320,8 @@
 				</div> <!-- / panel preview -->
 			</div>
 			<!-- Add category popup close-->
+
+
 			<!-- For popup -->
 			<script src='http://code.jquery.com/jquery-2.2.4.min.js'></script>
 			<script src='http://cdn.jsdelivr.net/jquery.magnific-popup/1.0.0/jquery.magnific-popup.min.js'></script>
