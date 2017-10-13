@@ -7,27 +7,21 @@ import lombok.experimental.Accessors;
 import javax.persistence.*;
 import java.util.List;
 
-@Entity
+
 @Data
 @AllArgsConstructor
 @Accessors(chain = true)
 public class User {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+
     Integer id;
 
-    String username;
+    String firstName;
+
+    String lastName;
 
     Long balance;
 
-    @OneToMany(mappedBy = "user")
-    List<Transaction> transactions;
 
-    @OneToMany(mappedBy = "user")
-    List<Credit> credits;
-
-    @OneToMany(mappedBy = "user")
-    List<Deposit> deposits;
 
     public User() {
 
@@ -37,7 +31,7 @@ public class User {
     public String toString() {
         return "User{" +
                 "id=" + id +
-                ", username='" + username + '\'' +
+                ", username='" + firstName + " " + lastName + '\'' +
                 ", balance=" + balance +
                 '}';
     }

@@ -7,14 +7,12 @@ import lombok.experimental.Accessors;
 import java.util.Date;
 import javax.persistence.*;
 
-@Entity
 @Data
 @AllArgsConstructor
 @Accessors(chain = true)
 public class Credit {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+
     Integer id;
 
     Long amountToPay;
@@ -27,9 +25,6 @@ public class Credit {
 
     CreditStatus status;
 
-    @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="USER_ID")
-    private User user;
 
     public Credit() {
         status = CreditStatus.IN_PROCESS;

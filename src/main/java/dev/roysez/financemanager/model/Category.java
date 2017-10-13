@@ -2,19 +2,19 @@ package dev.roysez.financemanager.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.experimental.Accessors;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 
 @Data
 @AllArgsConstructor
-@Entity
-public class Category {
+@Accessors(chain = true)
+public class Category implements Comparable<Category> {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Override
+    public int compareTo(Category o) {
+        return this.categoryName.hashCode() - o.categoryName.hashCode();
+    }
+
     Integer id;
 
     String categoryName;
@@ -26,7 +26,27 @@ public class Category {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+
+        Category category = (Category) o;
+
+        return categoryName.equals(category.categoryName);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + categoryName.hashCode();
+        return result;
+    }
+
+    @Override
     public String toString() {
-        return categoryName;
+
+        return  categoryName + " [" +tax + "%]";
+
     }
 }
