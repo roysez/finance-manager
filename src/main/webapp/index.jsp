@@ -22,10 +22,10 @@
 		<script src="<c:url value='/js/skel.min.js'/>"></script>
 		<script src="<c:url value='/js/skel-panels.min.js'/>"></script>
 		<script src="<c:url value='/js/init.js'/>"></script>
+		<script src="<c:url value='/js/transaction-operations.js'/>"></script>
 
 
-
-		<noscript>s
+		<noscript>
 			<link rel="stylesheet" href="/css/skel-noscript.cs'/>" />
 			<link rel="stylesheet" href="/css/style.css" />
 		</noscript>
@@ -162,7 +162,7 @@
 							</tr>
 							</thead>
 							<c:forEach items="${listOfTransactions}" var="item">
-								<tr class='clickable-row' />
+								<tr class='clickable-row' id="row-${item.getId()}"/>
 									<td>${item.getId()}</td>
 									<td>${item.getTrType().toString()}</td>
 									<td>${item.getDescription()}</td>
@@ -171,11 +171,9 @@
 									<td>${item.getDate().toString()}</td>
 									<td class="text-center">
 										<div class="ui-group-buttons">
-										<a href="http://www.jquery2dotnet.com" class="btn btn-success" role="button">
-										<span class="glyphicon glyphicon-ok"></span> Edit</a>
-										<div class="or"></div>
-										<a href="http://www.jquery2dotnet.com" class="btn btn-danger" role="button">
-										<span class="glyphicon glyphicon-remove"></span> Delete</a>
+
+										<button  onclick="deleteTransaction(${item.getId()})" class="btn btn-danger" role="button">
+										<span class="glyphicon glyphicon-remove"></span> Delete</button>
 										</div>
 									</td>
 								</tr>
@@ -207,7 +205,9 @@
 							</h2>
 							<br/>
 							<!-- Buttons -->
-							<button type="button" class="btn btn-success btn-lg btn3d">Record income</button>
+							<button type="button" class="btn btn-success btn-lg btn3d">
+								<a href="#income-popup" class="btn open-popup-link">Record income</a>
+							</button>
 							<button type="button" class="btn btn-danger btn-lg btn3d">
 								<a href="#expense-popup" class="btn open-popup-link">Record the expense</a>
 							</button>
@@ -225,6 +225,61 @@
 
 			</div>
 			<!-- main window close -->
+
+			<!-- Add income popup-->
+			<div id="income-popup" class="white-popup mfp-hide">
+				<div >
+					<h4>Record income:</h4>
+					<div class="panel panel-default">
+						<div class="panel-body form-horizontal payment-form">
+							<form:form action="transactions/income"  modelAttribute="transaction" method="POST" class="transaction-form" >
+								<div class="form-group">
+
+									<label for="sum" class="col-sm-3 control-label" >Income:</label>
+									<div class="col-sm-12">
+
+										<form:input placeholder="Sum:"
+													path="sum"  type="text"
+													class="form-control" name="sum" />
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="description" class="col-sm-3 control-label">Description:</label>
+									<div class="col-sm-12">
+										<form:input placeholder="Description:"
+													path="description" id="description" type="text"
+													class="form-control" name="description"  />
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="tax" class="col-sm-3 control-label">Category:</label>
+									<div class="col-sm-12">
+
+										<select name="selectedCategory">
+											<c:forEach items="${categoriesList}" var="object">
+												<option >${object.getCategoryName()}</option>
+											</c:forEach>
+
+										</select>
+
+
+									</div>
+								</div>
+
+								<div class="form-group">
+									<div class="col-sm-12 text-right">
+										<button type="submit" class="btn btn-default preview-add-button">
+											<span class="glyphicon glyphicon-plus"></span> record income
+										</button>
+									</div>
+								</div>
+							</form:form>
+
+						</div>
+					</div>
+				</div> <!-- / panel preview -->
+			</div>
+			<!-- Add income popup close-->
 
 
 			<!-- Add expense popup-->

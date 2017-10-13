@@ -38,18 +38,18 @@ public class FinanceManagerApplication extends SpringBootServletInitializer {
 									  CategoryService categoryService
 	) {
 		return (args) -> {
-			Category category = new Category(1,"Комуналка",100L);
-			Category category1 = new Category(2,"Фізруку",100L);
-			Category category2 = new Category(3,"Бурса",100L);
-			Category category3 = new Category(4,"Столовка",100L);
+			Category category = new Category(1,"Комуналка",100);
+			Category category1 = new Category(2,"Фізруку",100);
+			Category category2 = new Category(3,"Бурса",100);
+			Category category3 = new Category(4,"Столовка",100);
 
 
 			Transaction transaction = new Transaction(1, Transaction.TransactionType.TRANSACTION_EXPENSE,
-					100, new Date(), "Витрати на комуналку",
+					100L, new Date(), "Витрати на комуналку",
 					category);
 
 			Transaction transaction1 = new Transaction(4, Transaction.TransactionType.TRANSACTION_EXPENSE,
-					100, new Date(), "Забашляти за фізру",
+					100L, new Date(), "Забашляти за фізру",
 					category1);
 
 
@@ -80,24 +80,24 @@ public class FinanceManagerApplication extends SpringBootServletInitializer {
 
 
 
-			Category category = new Category(1,"Комуналка",100L);
-			Category category1 = new Category(2,"Фізруку",100L);
-			Category category2 = new Category(3,"Бурса",100L);
-			Category category3 = new Category(4,"Столовка",100L);
+			Category category = new Category(1,"Комуналка",100);
+			Category category1 = new Category(2,"Фізруку",100);
+			Category category2 = new Category(3,"Бурса",100);
+			Category category3 = new Category(4,"Столовка",100);
 
 
 
 			new Transaction(1, Transaction.TransactionType.TRANSACTION_EXPENSE,
-					100,new Date(),"Витрати на комуналку",
+					100L,new Date(),"Витрати на комуналку",
 					category  );
 			new Transaction(2, Transaction.TransactionType.TRANSACTION_EXPENSE,
-					100,new Date(),"Забашляти за фізру",
+					100L,new Date(),"Забашляти за фізру",
 					category1  );
 			new Transaction(3, Transaction.TransactionType.TRANSACTION_INCOME,
-					100,new Date(),"Стіпуха прийшла",
+					100L,new Date(),"Стіпуха прийшла",
 					category2  );
 			new Transaction(4, Transaction.TransactionType.TRANSACTION_EXPENSE,
-					100,new Date(),"Сходив в кормушку",
+					100L,new Date(),"Сходив в кормушку",
 					category2  );
 
 			Calendar cal = Calendar.getInstance();
@@ -109,10 +109,6 @@ public class FinanceManagerApplication extends SpringBootServletInitializer {
 
 
 			Deposit deposit = new Deposit().setDescription("На машину").setPercentages(10).setSum(2000L);
-
-
-
-
 
 
 		};

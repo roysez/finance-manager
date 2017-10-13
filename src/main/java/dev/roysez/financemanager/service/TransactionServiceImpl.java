@@ -105,6 +105,15 @@ public class TransactionServiceImpl implements TransactionService {
 
     @Override
     public void delete(Integer id) {
+        Set<Transaction> list = findAll();
+        Optional<Transaction> transaction = list.stream()
+                .filter(tr -> tr.getId().equals(id))
+                .collect(Collectors.reducing((a, b) -> null));
+
+        if(transaction.isPresent())
+            list.remove(transaction.get());
+
+        save(list);
 
     }
 

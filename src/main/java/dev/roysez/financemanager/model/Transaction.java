@@ -22,7 +22,7 @@ public class Transaction implements Comparable<Transaction> {
 
     TransactionType trType;
 
-    Integer sum;
+    Long sum;
 
     Date date;
 

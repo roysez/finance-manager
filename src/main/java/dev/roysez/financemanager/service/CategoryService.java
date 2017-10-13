@@ -14,6 +14,8 @@ public interface CategoryService {
 
     Category findOne(Integer id) throws IOException;
 
+    Category findOneByName(String sC) throws IOException;
+
     boolean exists(Integer id) throws IOException;
 
     Set<Category> findAll() throws IOException;

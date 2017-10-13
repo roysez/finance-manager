@@ -19,7 +19,7 @@ public class Category implements Comparable<Category> {
 
     String categoryName;
 
-    Long tax;
+    Integer tax;
 
     public Category() {
 

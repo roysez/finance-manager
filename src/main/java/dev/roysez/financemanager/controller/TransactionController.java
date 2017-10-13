@@ -7,12 +7,11 @@ import dev.roysez.financemanager.service.CategoryService;
 import dev.roysez.financemanager.service.TransactionService;
 import dev.roysez.financemanager.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
@@ -61,6 +60,16 @@ public class TransactionController {
         return "index";
     }
 
+
+    @RequestMapping(value = "/transactions/{id}",method = RequestMethod.DELETE)
+    public ResponseEntity deleteTransaction(@PathVariable("id") String id){
+
+
+        transactionService.delete(Integer.valueOf(id));
+
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
     @RequestMapping(value = "/transactions/expenses",method = RequestMethod.POST)
     public String postExpense(Transaction transaction,
                                     @RequestParam("selectedCategory") String sC,
@@ -70,21 +79,12 @@ public class TransactionController {
         transaction.setDate(new Date());
 
         try {
-
-
-            Category category = categoryService.findAll()
-                                                .stream()
-                                                .filter(element -> element.getCategoryName()
-                                                                            .equals(sC))
-                                                .reduce((category1, category2) -> {
-                                                    throw new IllegalStateException();
-                                                })
-                                                .orElseThrow(NoSuchElementException::new);
-
+            Category category = categoryService.findOneByName(sC);
             transaction.setCategory(category);
+
         } catch (IOException e) {
             e.printStackTrace();
-            redir.addFlashAttribute("error","Category can't be found");
+            redir.addFlashAttribute("error"," Category can't be found");
         }
 
 
@@ -107,6 +107,46 @@ public class TransactionController {
             redir.addFlashAttribute("error","Error while reading user information");
         } catch (IllegalStateException e) {
             redir.addFlashAttribute("error",e.getMessage());
+        }
+        return "redirect:/transactions";
+    }
+
+
+    @RequestMapping(value = "/transactions/income",method = RequestMethod.POST)
+    public String postIncome(Transaction transaction,
+                              @RequestParam("selectedCategory") String sC,
+                              RedirectAttributes redir){
+
+        transaction.setTrType(Transaction.TransactionType.TRANSACTION_INCOME);
+        transaction.setDate(new Date());
+
+        try {
+
+
+            Category category = categoryService.findOneByName(sC);
+            transaction.setCategory(category);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            redir.addFlashAttribute("error","Category can't be found");
+        }
+
+
+
+        try {
+
+            User user = userService.getUser();
+
+            Long userBalance = user.getBalance();
+
+
+            user.setBalance(userBalance+transaction.getSum());
+
+            transactionService.save(transaction);
+            userService.saveUser(user);
+
+        } catch (IOException e) {
+            redir.addFlashAttribute("error", "Error while reading user information");
         }
         return "redirect:/transactions";
     }
