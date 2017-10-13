@@ -82,24 +82,20 @@ public class TransactionController {
             Category category = categoryService.findOneByName(sC);
             transaction.setCategory(category);
 
-        } catch (IOException e) {
-            e.printStackTrace();
-            redir.addFlashAttribute("error"," Category can't be found");
-        }
 
-
-
-        try {
 
         User user = userService.getUser();
 
         Long userBalance = user.getBalance();
 
-        if(userBalance -transaction.getSum()<0)
+        Long tax =category.getTax()*transaction.getSum()/100;
+
+        if(userBalance -transaction.getSum() - tax < 0)
             throw new IllegalStateException("You don't have enough money to record this expense");
 
-        user.setBalance(userBalance-transaction.getSum());
+        user.setBalance(userBalance-transaction.getSum() - tax);
 
+            System.out.println("Transaction created ["+ transaction.getSum()+"] - with tax {" + tax + "}");
         transactionService.save(transaction);
         userService.saveUser(user);
 

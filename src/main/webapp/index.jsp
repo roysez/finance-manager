@@ -205,17 +205,19 @@
 							</h2>
 							<br/>
 							<!-- Buttons -->
-							<button type="button" class="btn btn-success btn-lg btn3d">
-								<a href="#income-popup" class="btn open-popup-link">Record income</a>
-							</button>
-							<button type="button" class="btn btn-danger btn-lg btn3d">
-								<a href="#expense-popup" class="btn open-popup-link">Record the expense</a>
-							</button>
+							<a href="#income-popup" type="button"
+							   class="btn open-popup-link btn-success btn-lg btn3d">
+								 Record income
+							</a>
+							<a href="#expense-popup" type="button"
+							   class="btn open-popup-link btn-danger btn-lg btn3d">
+								Record the expense
+							</a>
+							<a href="#category-popup" type="button"
+							   class="btn open-popup-link btn-success btn-lg btn3d">
+								Add new category
+							</a>
 
-
-							<button type="button" class="btn btn-success btn-lg btn3d">
-								<a href="#category-popup" class="btn open-popup-link">Add new category</a>
-							</button>
 
 						</section>
 					</div>
@@ -261,7 +263,10 @@
 											</c:forEach>
 
 										</select>
-
+										<a href="#category-popup" type="button"
+										   class="btn open-popup-link btn-default btn-sm ">
+											Add new category
+										</a>
 
 									</div>
 								</div>
@@ -313,11 +318,14 @@
 
 										<select name="selectedCategory">
 											<c:forEach items="${categoriesList}" var="object">
-												<option >${object.getCategoryName()}</option>
+												<option >${object.getCategoryName()} [${object.getTax()}%]</option>
 											</c:forEach>
 
-											</select>
-
+										</select>
+										<a href="#category-popup" type="button"
+										   class="btn open-popup-link btn-default btn-sm ">
+											Add new category
+										</a>
 
 									</div>
 								</div>
