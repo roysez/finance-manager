@@ -25,6 +25,8 @@
 	<script src="<c:url value='/js/transaction-operations.js'/>"></script>
 
 
+	<link 	rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" >
+
 	<noscript>
 		<link rel="stylesheet" href="/css/skel-noscript.cs'/>" />
 		<link rel="stylesheet" href="/css/style.css" />
@@ -131,6 +133,13 @@
 
 	<!-- Main -->
 	<div id="main">
+		<c:if test="${error!=null}">
+			<c:if test="${!error.isEmpty()}">
+				<div class="alert alert-danger">
+					<p>${error}</p>
+				</div>
+			</c:if>
+		</c:if>
 		<div class="container-fluid">
 			<div class="row">
 
@@ -169,7 +178,7 @@
 
 										<label for="sum" class="col-sm-12 control-label" >Sum for deposit</label>
 										<div class="col-sm-12">
-											<form:input placeholder="Example: 1.000$"
+											<form:input required="required" placeholder="Example: 1.000$"
 														path="sum" id="sum" type="text"
 														class="form-control" name="sum" />
 
@@ -181,7 +190,7 @@
 
 										<label for="percentages" class="col-sm-3 control-label" >Percentages:</label>
 										<div class="col-sm-12">
-											<form:input placeholder="Example: 3%"
+											<form:input required="required" placeholder="Example: 3%"
 														path="percentages" id="percentages" type="text"
 														class="form-control" name="percentages" />
 
@@ -218,7 +227,7 @@
 									<div class="form-group">
 										<div class="col-sm-12 text-right">
 											<button type="submit" class="btn btn-default preview-add-button">
-												<span class="glyphicon glyphicon-plus"></span> Add deposit
+												<i class="fa fa-plus"></i> Add deposit
 											</button>
 										</div>
 									</div>
@@ -259,9 +268,16 @@
 									<td>${item.getDescription()}</td>
 									<td>
 										<div class="ui-group-buttons">
-											<a href="http://www.jquery2dotnet.com" class="btn btn-success" role="button"><span class="glyphicon glyphicon-floppy-disk"></span></a>
-											<div class="or"></div>
-											<a href="http://www.jquery2dotnet.com" class="btn btn-danger" role="button"><span class="glyphicon glyphicon-trash"></span></a>
+											<c:if test="${item.checkIfCompleted()}">
+												<a href="" class="btn btn-success disabled" role="button"><i class="fa fa-usd"></i></a>
+												<div class="or"></div>
+												<a href="" class="btn btn-danger" role="button"><i class="fa fa-trash-o"></i></a>
+											</c:if>
+											<c:if test="${!item.checkIfCompleted()}">
+												<a href="" class="btn btn-success " role="button"><i class="fa fa-usd"></i></a>
+												<div class="or"></div>
+												<a href="" class="btn btn-danger disabled" role="button"><i class="fa fa-trash-o"></i></a>
+											</c:if>
 										</div>
 									</td>
 								</tr>

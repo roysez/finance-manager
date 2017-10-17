@@ -10,6 +10,8 @@ public interface DepositService {
 
     boolean save(Deposit entity) throws IOException;
 
+    boolean update(Deposit entity) throws IOException;
+
     Set<Deposit> save(Set<Deposit> entities) throws IOException;
 
     Deposit findOne(Integer id) throws IOException;

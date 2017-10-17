@@ -79,7 +79,9 @@ public class FinanceManagerApplication extends SpringBootServletInitializer {
 					.setDepositStatus(Deposit.DepositStatus.IN_PROCESS)
 					.setIncome(0L);
 
-			depositService.save(deposit);
+			//depositService.update(depositService.findOne(0).setMonthPaid(12)
+			//				.setDepositStatus(Deposit.DepositStatus.COMPLETED));
+			// depositService.save(deposit);
 		};
 	}
 

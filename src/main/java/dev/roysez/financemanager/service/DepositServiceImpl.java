@@ -52,6 +52,23 @@ public class DepositServiceImpl implements DepositService {
     }
 
     @Override
+    public boolean update(Deposit entity)  {
+
+        Set<Deposit> list = findAll();
+        if(list.isEmpty())
+            list = new TreeSet<>();
+
+        list = list.stream().filter(deposit -> deposit.getId().equals(entity.getId())).collect(Collectors.toSet());
+        boolean result = list.add(entity);
+        log.info("Deposit entity " + (result?"saved":"can't be saved") + " - {}" ,entity);
+
+        if(result)
+            save(list);
+
+        return result;
+    }
+
+    @Override
     public Set<Deposit> save(Set<Deposit> entities) {
         try {
             mapper.writeValue(new File(fileDest),entities);

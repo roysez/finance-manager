@@ -33,8 +33,22 @@ public class Deposit implements Comparable<Deposit> {
 
     private Integer monthPaid;
 
+    public Long doCharge(){
 
+        if(!depositStatus.equals(DepositStatus.COMPLETED)){
+            Long profit = sum*percentages/100;
+            income+=profit;
+            monthPaid++;
+            if(term.equals(monthPaid))
+                depositStatus = DepositStatus.COMPLETED;
 
+            return profit;
+        } else throw new IllegalStateException("Deposit is already ended");
+    }
+
+    public boolean checkIfCompleted(){
+        return depositStatus.equals(DepositStatus.COMPLETED);
+    }
 
     public Deposit() {
         depositStatus = DepositStatus.IN_PROCESS;

@@ -27,6 +27,7 @@
 
 		<%--<link href="//netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">--%>
 
+		<link 	rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" >
 		<noscript>
 			<link rel="stylesheet" href="/css/skel-noscript.cs'/>" />
 			<link rel="stylesheet" href="/css/style.css" />
@@ -175,7 +176,7 @@
 										<div class="ui-group-buttons">
 
 										<button  onclick="deleteTransaction(${item.getId()})" class="btn btn-danger" role="button">
-										<span class="glyphicon glyphicon-remove"></span> Delete</button>
+										<i class="fa fa-trash-o"></i> Delete</button>
 										</div>
 									</td>
 								</tr>
@@ -242,7 +243,7 @@
 									<label for="sum" class="col-sm-3 control-label" >Income:</label>
 									<div class="col-sm-12">
 
-										<form:input placeholder="Sum:"
+										<form:input required="required" placeholder="Sum:"
 													path="sum"  type="text"
 													class="form-control" name="sum" />
 									</div>
@@ -250,7 +251,7 @@
 								<div class="form-group">
 									<label for="description" class="col-sm-3 control-label">Description:</label>
 									<div class="col-sm-12">
-										<form:input placeholder="Description:"
+										<form:input required="required" placeholder="Description:"
 													path="description" id="description" type="text"
 													class="form-control" name="description"  />
 									</div>
@@ -276,7 +277,7 @@
 								<div class="form-group">
 									<div class="col-sm-12 text-right">
 										<button type="submit" class="btn btn-default preview-add-button">
-											<span class="glyphicon glyphicon-plus"></span> record income
+											<i class="fa fa-plus"></i> record income
 										</button>
 									</div>
 								</div>
@@ -301,7 +302,7 @@
 									<label for="categoryName" class="col-sm-3 control-label" >Sum:</label>
 									<div class="col-sm-12">
 
-										<form:input placeholder="Sum:"
+										<form:input required="required" placeholder="Sum:"
 													path="sum" id="sum" type="text"
 													class="form-control" name="sum" />
 									</div>
@@ -309,7 +310,7 @@
 								<div class="form-group">
 									<label for="tax" class="col-sm-3 control-label">Description:</label>
 									<div class="col-sm-12">
-										<form:input placeholder="Description:"
+										<form:input  required="required" placeholder="Description:"
 													path="description" id="description" type="text"
 													class="form-control" name="description"  />
 									</div>
@@ -335,7 +336,7 @@
 								<div class="form-group">
 									<div class="col-sm-12 text-right">
 										<button type="submit" class="btn btn-default preview-add-button">
-											<span class="glyphicon glyphicon-plus"></span> Add new expense
+											<i class="fa fa-plus"></i> Add new expense
 										</button>
 									</div>
 								</div>
@@ -358,7 +359,7 @@
 									<label for="categoryName" class="col-sm-12 control-label" >Category name</label>
 									<div class="col-sm-12">
 
-										<form:input placeholder="Name of a new category"
+										<form:input required="required" placeholder="Name of a new category"
 													path="categoryName" id="categoryName" type="text"
 													class="form-control" name="categoryName" />
 									</div>
@@ -366,7 +367,7 @@
 							<div class="form-group">
 								<label for="tax" class="col-sm-3 control-label">Tax</label>
 								<div class="col-sm-12">
-									<form:input placeholder="Tax"
+									<form:input required="required" placeholder="Tax"
 												path="tax" id="tax" type="text"
 												class="form-control" name="tax"  />
 								</div>
@@ -375,7 +376,7 @@
 							<div class="form-group">
 								<div class="col-sm-12 text-right">
 									<button type="submit" class="btn btn-default preview-add-button">
-										<span class="glyphicon glyphicon-plus"></span> Add new category
+										<i class="fa fa-plus"></i> Add new category
 									</button>
 								</div>
 							</div>
