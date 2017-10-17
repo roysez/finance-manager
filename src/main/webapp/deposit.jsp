@@ -106,51 +106,18 @@
 							</tr>
 							</thead>
 							<tbody>
-							<tr class="success">
+							<c:forEach items="${deposits}" var="item">
+								<tr class="success">
 
-								<td>1</td>
-								<td>ZYX987</td>
-								<td>192.168.1.99</td>
-								<td>AA:BB:11:22:CC:DD</td>
-								<td class="status">Online</td>
-								<td>test</td>
-							</tr>
-							<tr class="success">
+									<td>${item.getId()}</td>
+									<td>${item.getSum()}</td>
+									<td>${item.getIncome()}</td>
+									<td>${item.getPercentages()}</td>
+									<td class="status">${item.getDepositStatus()}</td>
+									<td>${item.getDescription()}</td>
 
-								<td>2</td>
-								<td>WVU654</td>
-								<td>192.168.1.98</td>
-								<td>EE:FF:33:44:AB:CD</td>
-								<td class="status">Online</td>
-								<td>test</td>
-							</tr>
-							<tr class="warning">
-
-								<td>3</td>
-								<td>TSR321</td>
-								<td>192.168.1.97</td>
-								<td>EF:12:FE:34:AA:CC</td>
-								<td class="status">Offline</td>
-								<td>test</td>
-							</tr>
-							<tr class="danger">
-
-								<td>4</td>
-								<td>QPO987</td>
-								<td>192.168.1.96</td>
-								<td>FA:91:EB:82:DC:73</td>
-								<td class="status">Out Of Order</td>
-								<td>test</td>
-							</tr>
-							<tr class="warning">
-
-								<td>5</td>
-								<td>NML654</td>
-								<td>192.168.1.95</td>
-								<td>98:AB:76:CD:54:EF</td>
-								<td class="status">Offline</td>
-								<td>test</td>
-							</tr>
+								</tr>
+							</c:forEach>
 							</tbody>
 						</table>
 					</div>

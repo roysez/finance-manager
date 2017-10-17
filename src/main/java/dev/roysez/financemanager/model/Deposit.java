@@ -10,21 +10,28 @@ import java.util.Date;
 @Data
 @AllArgsConstructor
 @Accessors(chain = true)
-public class Deposit {
+public class Deposit implements Comparable<Deposit> {
 
-    Long sum;
+        @Override
+        public int compareTo(Deposit o) {
+            return this.id-o.id;
+        }
 
-    Long income;
+    private Integer id;
 
-    Integer percentages;
+    private Long sum;
 
-    DepositStatus depositStatus;
+    private Long income;
 
-    Date date;
+    private Integer percentages;
 
-    String description;
+    private DepositStatus depositStatus;
 
-    private User user;
+    private Date date;
+
+    private String description;
+
+
 
     public Deposit() {
         depositStatus = DepositStatus.IN_PROCESS;
