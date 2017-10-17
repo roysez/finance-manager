@@ -59,8 +59,8 @@ public class FinanceManagerApplication extends SpringBootServletInitializer {
 			categoryService.save(category2);
 			categoryService.save(category3);
 
-			transactionService.save(transaction);
-			transactionService.save(transaction1);
+			//transactionService.save(transaction);
+			//transactionService.save(transaction1);
 
 			User user = new User().setBalance(100000L)
 					.setFirstName("Sergiy")

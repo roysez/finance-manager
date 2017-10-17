@@ -80,6 +80,17 @@ public class DepositController {
 
 
 
+            Transaction transaction = new Transaction()
+                    .setCategory(categoryService.findOneByName("Investing money"))
+                    .setDate(new Date())
+                    .setTrType(Transaction.TransactionType.TRANSACTION_EXPENSE)
+                    .setDescription("Put money in deposit")
+                    .setSum(deposit.getSum());
+
+
+
+            transactionService.save(transaction);
+
             depositService.save(deposit);
 
             userService.saveUser(user);

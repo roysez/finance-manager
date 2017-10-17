@@ -257,15 +257,15 @@
 							</thead>
 							<tbody>
 							<c:forEach items="${deposits}" var="item">
-								<tr class="success">
+								<tr class="success" id="row-${item.getId()}">
 
-									<td>${item.getId()}</td>
-									<td>${item.getSum()}</td>
-									<td>${item.getIncome()}</td>
-									<td>${item.getPercentages()}</td>
-									<td>${item.getMonthPaid()}/${item.getTerm()}</td>
-									<td class="status">${item.getDepositStatus()}</td>
-									<td>${item.getDescription()}</td>
+									<td id="col-id-${item.getId()}">${item.getId()}</td>
+									<td id="col-sum-${item.getId()}">${item.getSum()} $</td>
+									<td id="col-income-${item.getId()}">${item.getIncome()} $</td>
+									<td id="col-perc-${item.getId()}">${item.getPercentages()}%</td>
+									<td id="col-term-${item.getId()}">${item.getMonthPaid()}/${item.getTerm()}</td>
+									<td class="status" id="col-status-${item.getId()}">${item.getDepositStatus()}</td>
+									<td id="col-desc-${item.getId()}">${item.getDescription()}</td>
 									<td>
 										<div class="ui-group-buttons">
 											<c:if test="${item.checkIfCompleted()}">
@@ -274,9 +274,9 @@
 												<button href="" class="btn btn-danger" role="button"><i class="fa fa-trash-o"></i></button>
 											</c:if>
 											<c:if test="${!item.checkIfCompleted()}">
-												<button onclick="doCharge(${item.getId()})" class="btn btn-success " role="button"><i class="fa fa-usd"></i></button>
+												<button id="btn-chrg-${item.getId()}" onclick="doCharge(${item.getId()})" class="btn btn-success " role="button"><i class="fa fa-usd"></i></button>
 												<div class="or"></div>
-												<button href="" class="btn btn-danger disabled" role="button"><i class="fa fa-trash-o"></i></button>
+												<button id="btn-delete-${item.getId()}" class="btn btn-danger disabled" role="button"><i class="fa fa-trash-o"></i></button>
 											</c:if>
 										</div>
 									</td>

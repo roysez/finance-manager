@@ -169,7 +169,7 @@
 									<td>${item.getId()}</td>
 									<td>${item.getTrType().toString()}</td>
 									<td>${item.getDescription()}</td>
-									<td>${item.getSum()}</td>
+									<td>${item.getSum()} $</td>
 									<td>${item.getCategory().getCategoryName()}</td>
 									<td>${item.getDate().toString()}</td>
 									<td class="text-center">
