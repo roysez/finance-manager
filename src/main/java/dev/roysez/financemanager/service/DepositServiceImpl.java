@@ -58,9 +58,11 @@ public class DepositServiceImpl implements DepositService {
         if(list.isEmpty())
             list = new TreeSet<>();
 
-        list = list.stream().filter(deposit -> deposit.getId().equals(entity.getId())).collect(Collectors.toSet());
+        list.removeIf(deposit -> deposit.getId().equals(entity.getId()));
+
         boolean result = list.add(entity);
-        log.info("Deposit entity " + (result?"saved":"can't be saved") + " - {}" ,entity);
+
+        log.info("Deposit entity " + (result?"updated":"can't be saved") + " - {}" ,entity);
 
         if(result)
             save(list);

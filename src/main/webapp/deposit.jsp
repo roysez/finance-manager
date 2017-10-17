@@ -22,7 +22,7 @@
 	<script src="<c:url value='/js/skel.min.js'/>"></script>
 	<script src="<c:url value='/js/skel-panels.min.js'/>"></script>
 	<script src="<c:url value='/js/init.js'/>"></script>
-	<script src="<c:url value='/js/transaction-operations.js'/>"></script>
+	<script src="<c:url value='/js/deposit-operations.js'/>"></script>
 
 
 	<link 	rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" >
@@ -160,7 +160,7 @@
 									Add deposit
 								</a>
 							</li>
-							<li> <button type="button" class="btn btn-warning btn-xs btn3d">Change status of deposit</button></li>
+							<%--<li> <button type="button" class="btn btn-warning btn-xs btn3d">Change status of deposit</button></li>--%>
 
 						</ul>
 					</section>
@@ -269,14 +269,14 @@
 									<td>
 										<div class="ui-group-buttons">
 											<c:if test="${item.checkIfCompleted()}">
-												<a href="" class="btn btn-success disabled" role="button"><i class="fa fa-usd"></i></a>
+												<button href="" class="btn btn-success disabled" role="button"><i class="fa fa-usd"></i></button>
 												<div class="or"></div>
-												<a href="" class="btn btn-danger" role="button"><i class="fa fa-trash-o"></i></a>
+												<button href="" class="btn btn-danger" role="button"><i class="fa fa-trash-o"></i></button>
 											</c:if>
 											<c:if test="${!item.checkIfCompleted()}">
-												<a href="" class="btn btn-success " role="button"><i class="fa fa-usd"></i></a>
+												<button onclick="doCharge(${item.getId()})" class="btn btn-success " role="button"><i class="fa fa-usd"></i></button>
 												<div class="or"></div>
-												<a href="" class="btn btn-danger disabled" role="button"><i class="fa fa-trash-o"></i></a>
+												<button href="" class="btn btn-danger disabled" role="button"><i class="fa fa-trash-o"></i></button>
 											</c:if>
 										</div>
 									</td>
@@ -300,7 +300,7 @@
 	<!-- Copyright -->
 		<div id="copyright">
 			<div class="container">
-				Design: <a href="http://templated.co">TEMPLATED</a> Images: <a href="http://unsplash.com">Unsplash</a> (<a href="http://unsplash.com/cc0">CC0</a>)
+				Design: <a href="">Roysez</a>
 			</div>
 		</div>
 

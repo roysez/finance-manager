@@ -4,15 +4,16 @@ import dev.roysez.financemanager.model.Category;
 import dev.roysez.financemanager.model.Deposit;
 import dev.roysez.financemanager.model.Transaction;
 import dev.roysez.financemanager.model.User;
+import dev.roysez.financemanager.service.CategoryService;
 import dev.roysez.financemanager.service.DepositService;
+import dev.roysez.financemanager.service.TransactionService;
 import dev.roysez.financemanager.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
@@ -27,6 +28,12 @@ public class DepositController {
 
     @Autowired
     DepositService depositService;
+
+    @Autowired
+    TransactionService transactionService;
+
+    @Autowired
+    CategoryService categoryService;
 
     @Autowired
     UserService userService;
@@ -85,5 +92,36 @@ public class DepositController {
             redir.addFlashAttribute("error", e.getMessage());
         }
         return "redirect:/deposits";
+    }
+
+    @RequestMapping(value = "/{id}/charge",method = RequestMethod.POST)
+    public ResponseEntity doCharge(@PathVariable Integer id, Model model){
+        try {
+            Deposit deposit = depositService.findOne(id);
+            Long charge = deposit.doCharge();
+
+            User user = userService.getUser();
+
+            Transaction transaction = new Transaction()
+                    .setCategory(categoryService.findOneByName("Income from deposits"))
+                    .setDate(new Date())
+                    .setTrType(Transaction.TransactionType.TRANSACTION_INCOME)
+                    .setDescription("Profit from deposit")
+                    .setSum(charge);
+
+            user.setBalance(user.getBalance()+charge);
+
+            transactionService.save(transaction);
+
+            userService.saveUser(user);
+
+            depositService.update(deposit);
+
+            return new ResponseEntity(HttpStatus.OK);
+        } catch (IOException | IllegalStateException e) {
+            e.printStackTrace();
+            return new ResponseEntity(HttpStatus.BAD_GATEWAY);
+        }
+
     }
 }
