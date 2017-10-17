@@ -77,8 +77,7 @@ public class FinanceManagerApplication extends SpringBootServletInitializer {
 					.setId(0)
 					.setDescription("TESTIK")
 					.setDepositStatus(Deposit.DepositStatus.IN_PROCESS)
-					.setIncome(0L)
-					.setDate(new Date());
+					.setIncome(0L);
 
 			depositService.save(deposit);
 		};

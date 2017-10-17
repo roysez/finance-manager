@@ -78,6 +78,9 @@ public class TransactionController {
         transaction.setTrType(Transaction.TransactionType.TRANSACTION_EXPENSE);
         transaction.setDate(new Date());
 
+        if(sC.contains("["))
+            sC = sC.split("\\[")[0].trim();
+
         try {
             Category category = categoryService.findOneByName(sC);
             transaction.setCategory(category);

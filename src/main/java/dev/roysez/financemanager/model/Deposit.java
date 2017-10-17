@@ -27,16 +27,19 @@ public class Deposit implements Comparable<Deposit> {
 
     private DepositStatus depositStatus;
 
-    private Date date;
-
     private String description;
+
+    private Integer term;
+
+    private Integer monthPaid;
+
 
 
 
     public Deposit() {
         depositStatus = DepositStatus.IN_PROCESS;
-        date = new Date();
         income = 0L;
+        monthPaid = 0;
 
     }
 

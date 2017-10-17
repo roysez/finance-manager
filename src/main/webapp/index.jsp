@@ -25,6 +25,8 @@
 		<script src="<c:url value='/js/transaction-operations.js'/>"></script>
 
 
+		<%--<link href="//netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">--%>
+
 		<noscript>
 			<link rel="stylesheet" href="/css/skel-noscript.cs'/>" />
 			<link rel="stylesheet" href="/css/style.css" />
@@ -353,7 +355,7 @@
 							<form:form action="categories/"  modelAttribute="category" method="POST" class="category-form" >
 								<div class="form-group">
 
-									<label for="categoryName" class="col-sm-3 control-label" >Category name</label>
+									<label for="categoryName" class="col-sm-12 control-label" >Category name</label>
 									<div class="col-sm-12">
 
 										<form:input placeholder="Name of a new category"
