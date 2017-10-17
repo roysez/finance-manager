@@ -2,6 +2,7 @@ package dev.roysez.financemanager;
 
 import dev.roysez.financemanager.model.*;
 import dev.roysez.financemanager.service.CategoryService;
+import dev.roysez.financemanager.service.DepositService;
 import dev.roysez.financemanager.service.TransactionService;
 import dev.roysez.financemanager.service.UserService;
 import org.slf4j.Logger;
@@ -35,21 +36,21 @@ public class FinanceManagerApplication extends SpringBootServletInitializer {
 
 	@Bean
 	public CommandLineRunner demoFile(TransactionService transactionService,UserService userService,
-									  CategoryService categoryService
+									  CategoryService categoryService,DepositService depositService
 	) {
 		return (args) -> {
-			Category category = new Category(1,"Комуналка",100L);
-			Category category1 = new Category(2,"Фізруку",100L);
-			Category category2 = new Category(3,"Бурса",100L);
-			Category category3 = new Category(4,"Столовка",100L);
+			Category category = new Category(1,"Комуналка",100);
+			Category category1 = new Category(2,"Фізруку",100);
+			Category category2 = new Category(3,"Бурса",100);
+			Category category3 = new Category(4,"Столовка",100);
 
 
 			Transaction transaction = new Transaction(1, Transaction.TransactionType.TRANSACTION_EXPENSE,
-					100, new Date(), "Витрати на комуналку",
+					100L, new Date(), "Витрати на комуналку",
 					category);
 
 			Transaction transaction1 = new Transaction(4, Transaction.TransactionType.TRANSACTION_EXPENSE,
-					100, new Date(), "Забашляти за фізру",
+					100L, new Date(), "Забашляти за фізру",
 					category1);
 
 
@@ -58,8 +59,8 @@ public class FinanceManagerApplication extends SpringBootServletInitializer {
 			categoryService.save(category2);
 			categoryService.save(category3);
 
-			transactionService.save(transaction);
-			transactionService.save(transaction1);
+			//transactionService.save(transaction);
+			//transactionService.save(transaction1);
 
 			User user = new User().setBalance(100000L)
 					.setFirstName("Sergiy")
@@ -70,51 +71,20 @@ public class FinanceManagerApplication extends SpringBootServletInitializer {
 
 			System.out.println(transactionService.findAll().size());
 
+
+			Deposit deposit = new Deposit().setSum(3000L)
+					.setPercentages(10)
+					.setId(0)
+					.setDescription("TESTIK")
+					.setDepositStatus(Deposit.DepositStatus.IN_PROCESS)
+					.setIncome(0L);
+
+			//depositService.update(depositService.findOne(0).setMonthPaid(12)
+			//				.setDepositStatus(Deposit.DepositStatus.COMPLETED));
+			// depositService.save(deposit);
 		};
 	}
 
 
-	public CommandLineRunner demo() {
-		return (args) -> {
-			// save a couple of customer)s
 
-
-
-			Category category = new Category(1,"Комуналка",100L);
-			Category category1 = new Category(2,"Фізруку",100L);
-			Category category2 = new Category(3,"Бурса",100L);
-			Category category3 = new Category(4,"Столовка",100L);
-
-
-
-			new Transaction(1, Transaction.TransactionType.TRANSACTION_EXPENSE,
-					100,new Date(),"Витрати на комуналку",
-					category  );
-			new Transaction(2, Transaction.TransactionType.TRANSACTION_EXPENSE,
-					100,new Date(),"Забашляти за фізру",
-					category1  );
-			new Transaction(3, Transaction.TransactionType.TRANSACTION_INCOME,
-					100,new Date(),"Стіпуха прийшла",
-					category2  );
-			new Transaction(4, Transaction.TransactionType.TRANSACTION_EXPENSE,
-					100,new Date(),"Сходив в кормушку",
-					category2  );
-
-			Calendar cal = Calendar.getInstance();
-			cal.set(2025,10,10);
-			Date date = cal.getTime();
-
-			Credit credit = new Credit().setAmountToPay(10000L)
-					.setDueDate(date);
-
-
-			Deposit deposit = new Deposit().setDescription("На машину").setPercentages(10).setSum(2000L);
-
-
-
-
-
-
-		};
-	}
 }

@@ -66,6 +66,19 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
+    public Category findOneByName(String sC) throws IOException {
+        return  findAll()
+                .stream()
+                .filter(element -> element.getCategoryName()
+                        .equals(sC))
+                .reduce((category1, category2) -> {
+                    throw new IllegalStateException();
+                })
+                .orElseThrow(NoSuchElementException::new);
+
+    }
+
+    @Override
     public boolean exists(Integer id) throws IOException {
         return findAll().stream()
                 .filter(category -> category.getId().equals(id))

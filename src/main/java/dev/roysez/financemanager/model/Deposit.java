@@ -10,26 +10,50 @@ import java.util.Date;
 @Data
 @AllArgsConstructor
 @Accessors(chain = true)
-public class Deposit {
+public class Deposit implements Comparable<Deposit> {
 
-    Long sum;
+        @Override
+        public int compareTo(Deposit o) {
+            return this.id-o.id;
+        }
 
-    Long income;
+    private Integer id;
 
-    Integer percentages;
+    private Long sum;
 
-    DepositStatus depositStatus;
+    private Long income;
 
-    Date date;
+    private Integer percentages;
 
-    String description;
+    private DepositStatus depositStatus;
 
-    private User user;
+    private String description;
+
+    private Integer term;
+
+    private Integer monthPaid;
+
+    public Long doCharge(){
+
+        if(!depositStatus.equals(DepositStatus.COMPLETED)){
+            Long profit = sum*percentages/100;
+            income+=profit;
+            monthPaid++;
+            if(term.equals(monthPaid))
+                depositStatus = DepositStatus.COMPLETED;
+
+            return profit;
+        } else throw new IllegalStateException("Deposit is already ended");
+    }
+
+    public boolean checkIfCompleted(){
+        return depositStatus.equals(DepositStatus.COMPLETED);
+    }
 
     public Deposit() {
         depositStatus = DepositStatus.IN_PROCESS;
-        date = new Date();
         income = 0L;
+        monthPaid = 0;
 
     }
 

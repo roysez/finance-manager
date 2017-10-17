@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
+import java.util.Date;
+
 
 @Data
 @AllArgsConstructor
@@ -19,7 +21,7 @@ public class Category implements Comparable<Category> {
 
     String categoryName;
 
-    Long tax;
+    Integer tax;
 
     public Category() {
 
