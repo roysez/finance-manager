@@ -269,14 +269,14 @@
 									<td>
 										<div class="ui-group-buttons">
 											<c:if test="${item.checkIfCompleted()}">
-												<button href="" class="btn btn-success disabled" role="button"><i class="fa fa-usd"></i></button>
+												<button onclick="doCharge(${item.getId()})"  class="btn btn-success disabled" role="button"><i class="fa fa-usd"></i></button>
 												<div class="or"></div>
-												<button href="" class="btn btn-danger" role="button"><i class="fa fa-trash-o"></i></button>
+												<button onclick="deleteDeposit(${item.getId()})" class="btn btn-danger" role="button"><i class="fa fa-trash-o"></i></button>
 											</c:if>
 											<c:if test="${!item.checkIfCompleted()}">
 												<button id="btn-chrg-${item.getId()}" onclick="doCharge(${item.getId()})" class="btn btn-success " role="button"><i class="fa fa-usd"></i></button>
 												<div class="or"></div>
-												<button id="btn-delete-${item.getId()}" class="btn btn-danger disabled" role="button"><i class="fa fa-trash-o"></i></button>
+												<button id="btn-delete-${item.getId()}" onclick="deleteDeposit(${item.getId()})" class="btn btn-danger disabled" role="button"><i class="fa fa-trash-o"></i></button>
 											</c:if>
 										</div>
 									</td>

@@ -127,12 +127,19 @@ public class DepositController {
             userService.saveUser(user);
 
             depositService.update(deposit);
+            ResponseEntity responseEntity = new ResponseEntity(HttpStatus.OK);
 
-            return new ResponseEntity(HttpStatus.OK);
+
+            return responseEntity;
         } catch (IOException | IllegalStateException e) {
             e.printStackTrace();
-            return new ResponseEntity(HttpStatus.BAD_GATEWAY);
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
         }
 
+    }
+    @RequestMapping(value = "/{id}",method = RequestMethod.DELETE)
+    public  ResponseEntity deleteDeposit(@PathVariable Integer id){
+        depositService.delete(id);
+        return new ResponseEntity(HttpStatus.OK);
     }
 }
