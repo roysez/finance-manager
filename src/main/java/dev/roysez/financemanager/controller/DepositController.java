@@ -81,7 +81,7 @@ public class DepositController {
 
 
             Transaction transaction = new Transaction()
-                    .setCategory(categoryService.findOneByName("Investing money"))
+                    .setCategory(categoryService.findOneByName("Deposit"))
                     .setDate(new Date())
                     .setTrType(Transaction.TransactionType.TRANSACTION_EXPENSE)
                     .setDescription("Put money in deposit")
@@ -114,7 +114,7 @@ public class DepositController {
             User user = userService.getUser();
 
             Transaction transaction = new Transaction()
-                    .setCategory(categoryService.findOneByName("Income from deposits"))
+                    .setCategory(categoryService.findOneByName("Deposit"))
                     .setDate(new Date())
                     .setTrType(Transaction.TransactionType.TRANSACTION_INCOME)
                     .setDescription("Profit from deposit")

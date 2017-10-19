@@ -38,30 +38,30 @@ public class FinanceManagerApplication extends SpringBootServletInitializer {
 	) {
 		return (args) -> {
 
-			Category category = new Category(1,"Комуналка",100);
-			Category category1 = new Category(2,"Фізруку",100);
-			Category category2 = new Category(3,"Бурса",100);
-			Category category3 = new Category(4,"Столовка",100);
-
+			Category category = new Category(1,"Комунальні послуги",0);
+			Category category1 = new Category(2,"Фізруку",0);
+			Category category2 = new Category(3,"Бурса",0);
+			Category category3 = new Category(4,"Столовка",0);
+			Category category4 = new Category(5,"Credit",0);
+			Category category5 = new Category(6,"Deposit",0);
 
 			Transaction transaction = new Transaction(1, Transaction.TransactionType.TRANSACTION_EXPENSE,
 					100L, new Date(), "Витрати на комуналку",
 					category);
 
-			Transaction transaction1 = new Transaction(4, Transaction.TransactionType.TRANSACTION_EXPENSE,
-					100L, new Date(), "Забашляти за фізру",
-					category1);
+
 
 
 			categoryService.save(category);
-			categoryService.save(category1);
-			categoryService.save(category2);
-			categoryService.save(category3);
+//			categoryService.save(category1);
+//			categoryService.save(category2);
+//			categoryService.save(category3);
+			categoryService.save(category5);
+			categoryService.save(category4);
 
 			if(transactionService.findAll().size()==0) {
 				transactionService.save(transaction);
-				transactionService.save(transaction1);
-			}
+		}
 
 			User user = new User().setBalance(100000L)
 					.setFirstName("Sergiy")
@@ -72,6 +72,7 @@ public class FinanceManagerApplication extends SpringBootServletInitializer {
 
 
 			Deposit deposit = new Deposit().setSum(3000L)
+					.setTerm(5)
 					.setPercentages(10)
 					.setId(0)
 					.setDescription("Privat Bank Deposit")
@@ -84,7 +85,7 @@ public class FinanceManagerApplication extends SpringBootServletInitializer {
 
 
 
-			Credit credit = new Credit().setAmountToPay(1000L).setTerm(12);
+			Credit credit = new Credit().setAmountToPay(1000L).setTerm(12).setDescription("Test of credit");
 
 			if(creditService.findAll().size()==0) {
 				creditService.save(credit);

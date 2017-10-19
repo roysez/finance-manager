@@ -51,15 +51,19 @@ function doCharge(id) {
 }
 
 function deleteDeposit(id) {
-    $.ajax({
-        type: 'DELETE',
-        url: '/deposits/'+id,
 
-        "statusCode": {
-            200: function(){
-                console.log('deleted');
-                $('#row-'+id).remove();
+    if($('#btn-delete-'+id).hasClass("disabled")==false) {
+
+        $.ajax({
+            type: 'DELETE',
+            url: '/deposits/' + id,
+
+            "statusCode": {
+                200: function () {
+                    console.log('deleted');
+                    $('#row-' + id).remove();
+                }
             }
-        }
-    });
+        });
+    }
 }

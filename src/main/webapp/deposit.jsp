@@ -264,17 +264,17 @@
 									<td id="col-income-${item.getId()}">${item.getIncome()} $</td>
 									<td id="col-perc-${item.getId()}">${item.getPercentages()}%</td>
 									<td id="col-term-${item.getId()}">${item.getMonthPaid()}/${item.getTerm()}</td>
-									<td class="status" id="col-status-${item.getId()}">${item.getDepositStatus()}</td>
+									<td class="status" id="col-status-${item.getId()}">${item.getDepositStatus().toString()}</td>
 									<td id="col-desc-${item.getId()}">${item.getDescription()}</td>
 									<td>
 										<div class="ui-group-buttons">
 											<c:if test="${item.checkIfCompleted()}">
-												<button onclick="doCharge(${item.getId()})"  class="btn btn-success disabled" role="button"><i class="fa fa-usd"></i></button>
+												<button onclick="doCharge(${item.getId()})"  class="btn btn-success disabled" role="button"><i class="fa fa-refresh  "></i></button>
 												<div class="or"></div>
 												<button onclick="deleteDeposit(${item.getId()})" class="btn btn-danger" role="button"><i class="fa fa-trash-o"></i></button>
 											</c:if>
 											<c:if test="${!item.checkIfCompleted()}">
-												<button id="btn-chrg-${item.getId()}" onclick="doCharge(${item.getId()})" class="btn btn-success " role="button"><i class="fa fa-usd"></i></button>
+												<button id="btn-chrg-${item.getId()}" onclick="doCharge(${item.getId()})" class="btn btn-success " role="button"><i class="fa fa-refresh  "></i></button>
 												<div class="or"></div>
 												<button id="btn-delete-${item.getId()}" onclick="deleteDeposit(${item.getId()})" class="btn btn-danger disabled" role="button"><i class="fa fa-trash-o"></i></button>
 											</c:if>

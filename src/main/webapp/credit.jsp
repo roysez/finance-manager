@@ -1,6 +1,7 @@
 <!DOCTYPE HTML>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html >
 <head>
 	<title>Finance Manager</title>
@@ -17,7 +18,7 @@
 	<script src="<c:url value='/js/skel.min.js'/>"></script>
 	<script src="<c:url value='/js/skel-panels.min.js'/>"></script>
 	<script src="<c:url value='/js/init.js'/>"></script>
-	<script src="<c:url value='/js/deposit-operations.js'/>"></script>
+	<script src="<c:url value='/js/credit-operations.js'/>"></script>
 
 
 	<link 	rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" >
@@ -130,6 +131,9 @@
 	<!-- Main -->
 	<div id="main">
 		<div class="container">
+			<div id="error-alert" class="alert alert-danger user-alert">
+				<p id="error-alert-text" >You don't have enough money to pay</p>
+			</div>
 			<div class="row">
 
 				<!-- Content -->
@@ -168,34 +172,42 @@
 									<th>Paid money</th>
 									<th>Paid/Term (m)</th>
 									<th style="width:25%">Progress</th>
+									<th>Description</th>
 									<th>Status</th>
 									<th>Actions</th>
 								</tr>
 								</thead>
 								<tbody>
 								<c:forEach items="${credits}" var="item">
-									<tr>
+									<tr id="row-${item.getId()}">
 										<td id="col-id-${item.getId()}">${item.getId()}</td>
 										<td id="col-sum-${item.getId()}">${item.getAmountToPay()} $</td>
-										<td id="col-pm-${item.getId()}">${item.getPaidMoney()} $</td>
+										<td id="col-pm-${item.getId()}">${item.getPaidMoney().longValue()} $</td>
 										<td id="col-term-${item.getId()}">${item.getMonthPaid()}/${item.getTerm()}</td>
 										<td>
 											<div class="progress">
-												<div style="width: ${item.getPaidMoney()/item.getAmountToPay()*100}%;"
+												<div style="width: ${(item.getPaidMoney()/item.getAmountToPay()*100).longValue()}%;"
 													 aria-valuemax="100" aria-valuemin="0"
-													 aria-valuenow=" ${item.getPaidMoney()/item.getAmountToPay()*100}"
+													 aria-valuenow=" ${(item.getPaidMoney()/item.getAmountToPay()*100).longValue()}"
 													 role="progressbar" class="red progress-bar">
-													<span> ${item.getPaidMoney()/item.getAmountToPay()*100}%</span>
+													<span> ${(item.getPaidMoney()/item.getAmountToPay()*100).longValue()}%</span>
 												</div>
 											</div>
 										</td>
-										<td class="status" id="col-status-${item.getId()}">${item.getStatus()}</td>
+										<td class="" id="col-desc-${item.getId()}">${item.getDescription()}</td>
+										<td class="status" id="col-status-${item.getId()}">${item.getStatus().toString()}</td>
+
 										<td><div class="ui-group-buttons">
-
-											<button  class="btn btn-success disabled" role="button"><i class="fa fa-usd"></i></button>
-											<div class="or"></div>
-											<button  class="btn btn-danger" role="button"><i class="fa fa-trash-o"></i></button>
-
+											<c:if test="${item.checkIfCompleted()}">
+												<button onclick="doCharge(${item.getId()})"  class="btn btn-success disabled" role="button"><i class="fa fa-usd  "></i></button>
+												<div class="or"></div>
+												<button onclick="deleteCredit(${item.getId()})" class="btn btn-danger" role="button"><i class="fa fa-trash-o"></i></button>
+											</c:if>
+											<c:if test="${!item.checkIfCompleted()}">
+												<button id="btn-chrg-${item.getId()}" onclick="doCharge(${item.getId()})" class="btn btn-success " role="button"><i class="fa fa-usd  "></i></button>
+												<div class="or"></div>
+												<button id="btn-delete-${item.getId()}" onclick="deleteCredit(${item.getId()})" class="btn btn-danger disabled" role="button"><i class="fa fa-trash-o"></i></button>
+											</c:if>
 										</div>
 										</td>
 
@@ -210,11 +222,7 @@
 				<!-- /Content -->
 
 			</div>
-		<!-- For popup -->
-		<script src='http://code.jquery.com/jquery-2.2.4.min.js'></script>
-		<script src='http://cdn.jsdelivr.net/jquery.magnific-popup/1.0.0/jquery.magnific-popup.min.js'></script>
-		<script src="<c:url value='/js/popup-show.js'/>"></script>
-		<!--  For popup close -->
+
 		</div>
 	<!-- !Main -->
 
@@ -224,7 +232,55 @@
 			<h4>Add credit:</h4>
 			<div class="panel panel-default">
 				<div class="panel-body form-horizontal payment-form">
-sdasdasd
+					<form:form action="credits/"  modelAttribute="credit" method="POST" class="credit-form" >
+						<div class="form-group">
+
+							<label for="amountToPay" class="col-sm-12 control-label" >Sum of credit</label>
+							<div class="col-sm-12">
+								<form:input required="required" placeholder="Example: 1.000$"
+											path="amountToPay" id="amountToPay" type="text"
+											class="form-control" name="amountToPay" />
+
+
+							</div>
+
+						</div>
+
+
+						<div class="form-group">
+
+							<label for="description" class="col-sm-3 control-label" >Description:</label>
+							<div class="col-sm-12">
+								<form:input placeholder="say something :)"
+											path="description" id="description" type="text"
+											class="form-control" name="description" />
+
+
+							</div>
+
+						</div>
+
+						<div class="form-group">
+
+							<label for="term" class="col-sm-3 control-label" >Term:</label>
+							<div class="col-sm-12">
+								<form:input placeholder="How many payments to divide"
+											path="term" id="term" type="text"
+											class="form-control" name="term" />
+
+
+							</div>
+
+						</div>
+						<div class="form-group">
+							<div class="col-sm-12 text-right">
+								<button type="submit" class="btn btn-default preview-add-button">
+									<i class="fa fa-plus"></i> Add credit to history
+								</button>
+							</div>
+						</div>
+					</form:form>
+
 				</div>
 			</div>
 		</div> <!-- / panel preview -->

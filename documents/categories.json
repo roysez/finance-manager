@@ -1,1 +1,17 @@
-[{"id":4,"categoryName":"Столовка","tax":100},{"id":2,"categoryName":"Фізруку","tax":100},{"id":3,"categoryName":"Зарплата","tax":0},{"id":4,"categoryName":"Income from deposits","tax":0},{"id":4,"categoryName":"Їжа","tax":0},{"id":2,"categoryName":"TEST","tax":0},{"id":4,"categoryName":"Investing money","tax":0},{"id":3,"categoryName":"Комунальні послуги","tax":5},{"id":3,"categoryName":"Бурса","tax":100},{"id":1,"categoryName":"Комуналка","tax":100}]
+[
+  {
+    "id": 4,
+    "categoryName": "Deposit",
+    "tax": 0
+  },
+  {
+    "id": 3,
+    "categoryName": "Комунальні послуги",
+    "tax": 5
+  },
+  {
+    "id": 3,
+    "categoryName": "Credit",
+    "tax": 0
+  }
+]

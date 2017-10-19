@@ -9,12 +9,12 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 public class Credit implements Comparable<Credit> {
 
-    Integer id;
-    Long amountToPay;
-    Double paidMoney;
-    CreditStatus status;
+    private Integer id;
+    private Long amountToPay;
+    private Double paidMoney;
+    private CreditStatus status;
     private Integer term;
-
+    private String description;
     private Integer monthPaid;
 
     public Credit() {
@@ -27,6 +27,23 @@ public class Credit implements Comparable<Credit> {
     @Override
     public int compareTo(Credit o) {
         return this.id - o.id;
+    }
+
+    public Double doCharge() {
+
+        if (!status.equals(CreditStatus.PAID)) {
+            Double amount = (double) amountToPay / (double) term;
+            paidMoney += amount;
+            monthPaid++;
+            if (term.equals(monthPaid))
+                status = CreditStatus.PAID;
+
+            return amount;
+        } else throw new IllegalStateException("Deposit is already ended");
+    }
+
+    public boolean checkIfCompleted() {
+        return status.equals(CreditStatus.PAID);
     }
 
     @Override
