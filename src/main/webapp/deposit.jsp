@@ -237,7 +237,7 @@
 						</div>
 					</div> <!-- / panel preview -->
 				</div>
-				<!-- Add income popup close-->
+				<!-- Add deposir popup close-->
 
 				<!-- Content -->
 				<div id="content" class="8u skel-cell-important">

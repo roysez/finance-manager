@@ -51,7 +51,7 @@ public class DepositController {
             model.addAttribute("deposit",new Deposit());
             model.addAttribute("deposits",deposits);
         } catch (Exception e) {
-
+            model.addAttribute("error",e.getMessage());
         }
 
         return "deposit";

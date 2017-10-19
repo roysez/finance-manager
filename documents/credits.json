@@ -1,0 +1,26 @@
+[
+  {
+    "id": 0,
+    "amountToPay": 1000,
+    "paidMoney": 500,
+    "status": "IN_PROCESS",
+    "term": 12,
+    "monthPaid": 0
+  },
+  {
+    "id": 1,
+    "amountToPay": 1000,
+    "paidMoney": 300,
+    "status": "IN_PROCESS",
+    "term": 12,
+    "monthPaid": 0
+  },
+  {
+    "id": 2,
+    "amountToPay": 1000,
+    "paidMoney": 0,
+    "status": "IN_PROCESS",
+    "term": 12,
+    "monthPaid": 0
+  }
+]

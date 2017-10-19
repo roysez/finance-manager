@@ -1,45 +1,32 @@
 package dev.roysez.financemanager.model;
 
 import lombok.AllArgsConstructor;
-
 import lombok.Data;
 import lombok.experimental.Accessors;
-import java.util.Date;
-import javax.persistence.*;
 
 @Data
 @AllArgsConstructor
 @Accessors(chain = true)
-public class Credit {
-
+public class Credit implements Comparable<Credit> {
 
     Integer id;
-
     Long amountToPay;
-
-    Long paidMoney;
-
-    Date date;
-
-    Date dueDate;
-
+    Double paidMoney;
     CreditStatus status;
+    private Integer term;
 
+    private Integer monthPaid;
 
     public Credit() {
         status = CreditStatus.IN_PROCESS;
-        date = new Date();
-        paidMoney = 0L;
+        paidMoney = 0D;
+        monthPaid = 0;
+
     }
 
-    public enum CreditStatus {
-        PAID,
-        IN_PROCESS;
-
-        @Override
-        public String toString() {
-            return this.name().equals("PAID")?"Paid":"In process";
-        }
+    @Override
+    public int compareTo(Credit o) {
+        return this.id - o.id;
     }
 
     @Override
@@ -48,9 +35,17 @@ public class Credit {
                 "id=" + id +
                 ", amountToPay=" + amountToPay +
                 ", paidMoney=" + paidMoney +
-                ", date=" + date +
-                ", dueDate=" + dueDate +
                 ", status=" + status +
                 '}';
+    }
+
+    public enum CreditStatus {
+        PAID,
+        IN_PROCESS;
+
+        @Override
+        public String toString() {
+            return this.name().equals("PAID") ? "Paid" : "In process";
+        }
     }
 }

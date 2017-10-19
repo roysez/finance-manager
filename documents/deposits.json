@@ -1,1 +1,1 @@
-[{"id":9,"sum":3000,"income":0,"percentages":90,"depositStatus":"IN_PROCESS","description":"в банк БАНК","term":16,"monthPaid":0},{"id":10,"sum":1000,"income":200,"percentages":10,"depositStatus":"IN_PROCESS","description":"В банк АВАЛЬ","term":4,"monthPaid":2}]
+[{"id":0,"sum":3000,"income":0,"percentages":10,"depositStatus":"IN_PROCESS","description":"Privat Bank Deposit","term":null,"monthPaid":0}]

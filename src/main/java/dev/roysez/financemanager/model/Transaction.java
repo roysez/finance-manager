@@ -79,6 +79,6 @@ public class Transaction implements Comparable<Transaction> {
                 ", date=" + date +
                 ", description='" + description + '\'' +
                 ", category='" + category + '\'' +
-                '}'+'\n';
+                '}';
     }
 }
