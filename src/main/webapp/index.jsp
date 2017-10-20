@@ -259,17 +259,23 @@
 								<div class="form-group">
 									<label for="tax" class="col-sm-3 control-label">Category:</label>
 									<div class="col-sm-12">
+										<ul>
+											<li><select name="selectedCategory">
+												<c:forEach items="${categoriesList}" var="object">
+													<option >${object.getCategoryName()}</option>
+												</c:forEach>
 
-										<select name="selectedCategory">
-											<c:forEach items="${categoriesList}" var="object">
-												<option >${object.getCategoryName()}</option>
-											</c:forEach>
+											</select>
+											</li>
+											<li>
+												<a href="#category-popup" type="button"
+												   class="btn open-popup-link btn-default btn-sm "
+												style="color:black;" >
+												<i class="fa fa-plus"></i> category
+											</a></li>
+										</ul>
 
-										</select>
-										<a href="#category-popup" type="button"
-										   class="btn open-popup-link btn-default btn-sm ">
-											Add new category
-										</a>
+
 
 									</div>
 								</div>
@@ -318,17 +324,22 @@
 								<div class="form-group">
 									<label for="tax" class="col-sm-3 control-label">Category:</label>
 									<div class="col-sm-12">
-
+										<ul>
+											<li>
 										<select name="selectedCategory">
 											<c:forEach items="${categoriesList}" var="object">
 												<option >${object.getCategoryName()} [${object.getTax()}%]</option>
 											</c:forEach>
 
 										</select>
-										<a href="#category-popup" type="button"
-										   class="btn open-popup-link btn-default btn-sm ">
-											Add new category
-										</a>
+										</li>
+										<li>
+											<a href="#category-popup" type="button"
+											   class="btn open-popup-link btn-default btn-sm "
+											   style="color:black;" >
+												<i class="fa fa-plus"></i> category
+											</a></li>
+										</ul>
 
 									</div>
 								</div>
