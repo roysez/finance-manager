@@ -140,7 +140,7 @@
 		<div id="main">
 			<c:if test="${error!=null}">
 				<c:if test="${!error.isEmpty()}">
-				<div class="alert alert-danger">
+				<div class="alert alert-danger user-alert" style="display: block">
 					<p>${error}</p>
 				</div>
 				</c:if>
@@ -171,7 +171,7 @@
 									<td>${item.getDescription()}</td>
 									<td>${item.getSum()} $</td>
 									<td>${item.getCategory().getCategoryName()}</td>
-									<td>${item.getDate().toString()}</td>
+									<td>${item.getDate().toString().substring(0, 10)}</td>
 									<td class="text-center">
 										<div class="ui-group-buttons">
 

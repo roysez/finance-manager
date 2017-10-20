@@ -499,3 +499,9 @@
 .balance {
 	font-size: 40px;
 }
+
+.user-alert {
+	display: none;
+	text-align: center;
+	font-size: 17px;
+}

@@ -4,7 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
-
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 
@@ -13,36 +15,20 @@ import java.util.Date;
 @Accessors(chain = true)
 public class Transaction implements Comparable<Transaction> {
 
-    @Override
-    public int compareTo(Transaction o) {
-        return this.id-o.id;
-    }
-
     Integer id;
-
     TransactionType trType;
-
     Long sum;
-
     Date date;
-
     String description;
-
     Category category;
 
     public Transaction() {
 
     }
 
-    public enum TransactionType {
-        TRANSACTION_EXPENSE,
-        TRANSACTION_INCOME ;
-
-
-        @Override
-        public String toString() {
-            return this.name().equals("TRANSACTION_EXPENSE")?"Expense":"Income";
-        }
+    @Override
+    public int compareTo(Transaction o) {
+        return this.id - o.id;
     }
 
     @Override
@@ -79,6 +65,18 @@ public class Transaction implements Comparable<Transaction> {
                 ", date=" + date +
                 ", description='" + description + '\'' +
                 ", category='" + category + '\'' +
-                '}'+'\n';
+                '}';
+    }
+
+
+    public enum TransactionType {
+        TRANSACTION_EXPENSE,
+        TRANSACTION_INCOME;
+
+
+        @Override
+        public String toString() {
+            return this.name().equals("TRANSACTION_EXPENSE") ? "Expense" : "Income";
+        }
     }
 }

@@ -51,7 +51,7 @@ public class DepositController {
             model.addAttribute("deposit",new Deposit());
             model.addAttribute("deposits",deposits);
         } catch (Exception e) {
-
+            model.addAttribute("error",e.getMessage());
         }
 
         return "deposit";
@@ -81,7 +81,7 @@ public class DepositController {
 
 
             Transaction transaction = new Transaction()
-                    .setCategory(categoryService.findOneByName("Investing money"))
+                    .setCategory(categoryService.findOneByName("Deposit"))
                     .setDate(new Date())
                     .setTrType(Transaction.TransactionType.TRANSACTION_EXPENSE)
                     .setDescription("Put money in deposit")
@@ -114,7 +114,7 @@ public class DepositController {
             User user = userService.getUser();
 
             Transaction transaction = new Transaction()
-                    .setCategory(categoryService.findOneByName("Income from deposits"))
+                    .setCategory(categoryService.findOneByName("Deposit"))
                     .setDate(new Date())
                     .setTrType(Transaction.TransactionType.TRANSACTION_INCOME)
                     .setDescription("Profit from deposit")
@@ -127,12 +127,19 @@ public class DepositController {
             userService.saveUser(user);
 
             depositService.update(deposit);
+            ResponseEntity responseEntity = new ResponseEntity(HttpStatus.OK);
 
-            return new ResponseEntity(HttpStatus.OK);
+
+            return responseEntity;
         } catch (IOException | IllegalStateException e) {
             e.printStackTrace();
-            return new ResponseEntity(HttpStatus.BAD_GATEWAY);
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
         }
 
+    }
+    @RequestMapping(value = "/{id}",method = RequestMethod.DELETE)
+    public  ResponseEntity deleteDeposit(@PathVariable Integer id){
+        depositService.delete(id);
+        return new ResponseEntity(HttpStatus.OK);
     }
 }
