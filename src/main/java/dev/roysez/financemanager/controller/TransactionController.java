@@ -93,6 +93,7 @@ public class TransactionController {
 
         Long tax =category.getTax()*transaction.getSum()/100;
 
+        transaction.setSum(transaction.getSum()+tax);
         if(userBalance -transaction.getSum() - tax < 0)
             throw new IllegalStateException("You don't have enough money to record this expense");
 
