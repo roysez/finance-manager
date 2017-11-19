@@ -1,1 +1,1 @@
-[{"id":0,"amountToPay":1000,"paidMoney":0.0,"status":"IN_PROCESS","term":12,"description":"Test of credit","monthPaid":0}]
+[{"id":0,"amountToPay":1000,"paidMoney":666.6666666666666,"status":"IN_PROCESS","term":3,"description":"Кредит","monthPaid":2},{"id":1,"amountToPay":10000,"paidMoney":2000.0,"status":"IN_PROCESS","term":10,"description":"Кредит на 10 місяців","monthPaid":2}]

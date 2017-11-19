@@ -4,9 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
-import javax.persistence.*;
-import java.util.List;
-
 
 @Data
 @AllArgsConstructor
@@ -20,7 +17,6 @@ public class User {
     String lastName;
 
     Long balance;
-
 
 
     public User() {
