@@ -15,12 +15,12 @@ import java.util.Date;
 @Accessors(chain = true)
 public class Transaction implements Comparable<Transaction> {
 
-    Integer id;
-    TransactionType trType;
-    Long sum;
-    Date date;
-    String description;
-    Category category;
+    private Integer id;
+    private TransactionType trType;
+    private Long sum;
+    private Date date;
+    private String description;
+    private Category category;
 
     public Transaction() {
 

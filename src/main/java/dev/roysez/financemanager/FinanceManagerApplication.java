@@ -80,7 +80,7 @@ public class FinanceManagerApplication extends SpringBootServletInitializer {
 					.setIncome(0L);
 
 			if(depositService.findAll().size()==0) {
-				 depositService.save(deposit);
+				// depositService.save(deposit);
 			}
 
 
@@ -88,7 +88,7 @@ public class FinanceManagerApplication extends SpringBootServletInitializer {
 			Credit credit = new Credit().setAmountToPay(1000L).setTerm(12).setDescription("Test of credit");
 
 			if(creditService.findAll().size()==0) {
-				creditService.save(credit);
+				// creditService.save(credit);
 			}
 		};
 	}

@@ -4,35 +4,35 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import dev.roysez.financemanager.FinanceManagerApplication;
 import dev.roysez.financemanager.model.Category;
-import dev.roysez.financemanager.model.Category;
-import dev.roysez.financemanager.model.Transaction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.*;
+import java.util.Collections;
+import java.util.NoSuchElementException;
+import java.util.Set;
+import java.util.TreeSet;
+
 @Service
 public class CategoryServiceImpl implements CategoryService {
 
-    private final String fileDest = "C:\\Users\\roysez\\IdeaProjects\\finance-manager\\documents\\categories.json";
-
-    private final ObjectMapper mapper = new ObjectMapper();
-
     private static final Logger log = LoggerFactory.getLogger(FinanceManagerApplication.class);
+    private final String fileDest = "C:\\Users\\roysez\\IdeaProjects\\finance-manager\\documents\\categories.json";
+    private final ObjectMapper mapper = new ObjectMapper();
 
     @Override
     public boolean save(Category entity) throws IOException {
         Set<Category> set = findAll();
-        if(set.isEmpty())
+        if (set.isEmpty())
             set = new TreeSet<>();
 
         boolean result = set.add(entity);
 
-        log.info("Category" + (result?"added":"already exist") + " - {}",entity);
+        log.info("Category" + (result ? "added" : "already exist") + " - {}", entity);
 
-        if(result)
+        if (result)
             save(set);
 
         return result;
@@ -41,14 +41,12 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public Set<Category> save(Set<Category> entities) throws IOException {
         try {
-            mapper.writeValue(new File(fileDest),entities);
+            mapper.writeValue(new File(fileDest), entities);
             return entities;
-        }catch (JsonMappingException e){
-          //  e.printStackTrace();
+        } catch (JsonMappingException e) {
+            //  e.printStackTrace();
             return Collections.emptySet();
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
             return Collections.emptySet();
         }
@@ -59,7 +57,7 @@ public class CategoryServiceImpl implements CategoryService {
         return findAll().stream()
                 .filter(category -> category.getId().equals(id))
                 .reduce((category, category2) -> {
-                    throw new  IllegalStateException();
+                    throw new IllegalStateException();
                 })
                 .orElseThrow(NoSuchElementException::new);
 
@@ -67,7 +65,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public Category findOneByName(String sC) throws IOException {
-        return  findAll()
+        return findAll()
                 .stream()
                 .filter(element -> element.getCategoryName()
                         .equals(sC))
@@ -82,7 +80,7 @@ public class CategoryServiceImpl implements CategoryService {
     public boolean exists(Integer id) throws IOException {
         return findAll().stream()
                 .filter(category -> category.getId().equals(id))
-                .count()==1;
+                .count() == 1;
     }
 
     @Override
@@ -91,11 +89,11 @@ public class CategoryServiceImpl implements CategoryService {
             Set<Category> set = mapper.readValue(new File(fileDest),
                     new com.fasterxml.jackson.core.type.TypeReference<TreeSet<Category>>() {
                     });
-            return set == null ? Collections.emptySet():set;
-        } catch (JsonMappingException e){
+            return set == null ? Collections.emptySet() : set;
+        } catch (JsonMappingException e) {
             //  e.printStackTrace();
             return Collections.emptySet();
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return Collections.emptySet();
         }
