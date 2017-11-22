@@ -17,10 +17,13 @@ import java.util.stream.Collectors;
 public class TransactionServiceImpl implements TransactionService {
 
     private static final Logger log = LoggerFactory.getLogger(FinanceManagerApplication.class);
-    // Файл для транзакцій
+    /**
+     * Файл для транзакцій
+     */
     private final String fileDest = "C:\\Users\\roysez\\IdeaProjects\\finance-manager\\documents\\transactions.json";
-    //
+
     private final ObjectMapper mapper = new ObjectMapper();
+
 
     @Override
     public boolean save(Transaction entity) {
@@ -45,6 +48,7 @@ public class TransactionServiceImpl implements TransactionService {
 
         return result;
     }
+
 
     @Override
     public Set<Transaction> save(Set<Transaction> entities) {

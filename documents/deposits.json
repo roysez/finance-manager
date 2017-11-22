@@ -1,1 +1,1 @@
-[{"id":0,"sum":5000,"income":0,"percentages":10,"depositStatus":"IN_PROCESS","description":"Депозит під 10%","term":5,"monthPaid":0},{"id":1,"sum":550,"income":54,"percentages":5,"depositStatus":"COMPLETED","description":"Депозит під 5%","term":2,"monthPaid":2},{"id":2,"sum":1000,"income":100,"percentages":5,"depositStatus":"IN_PROCESS","description":"Депозит під 5%","term":5,"monthPaid":2}]
+[{"id":0,"sum":3000,"income":0,"percentages":10,"depositStatus":"IN_PROCESS","description":"Депозит/ПриватБанк","term":5,"monthPaid":0}]

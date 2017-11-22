@@ -18,6 +18,13 @@ public class CategoryController {
     @Autowired
     CategoryService categoryService;
 
+
+    /**
+     * Процес обробки даних, додавання нової Категорії
+     * @param category - обєкт категорії отриманий з View
+     * @param redir - {@link RedirectAttributes}
+     * @return назва View
+     */
     @RequestMapping(value = "/", method = RequestMethod.POST)
     public String postCategory(Category category, RedirectAttributes redir) {
 
