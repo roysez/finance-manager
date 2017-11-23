@@ -8,7 +8,7 @@ import java.util.Set;
 public interface TransactionService {
 
     /**
-     * Та й таке
+     * Зберегти транзакцію
      * @param entity - транзакція для збереження
      * @return result - true, якщо транзакція була записана у файл
      */
@@ -42,7 +42,11 @@ public interface TransactionService {
      */
     Set<Transaction> findAll() throws IOException;
 
+    /**
+     * Видалити транзакцію
+     * @param id - унікальне значення
+     */
     void delete(Integer id);
 
-    void delete(Transaction entity);
+
 }

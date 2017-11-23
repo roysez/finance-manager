@@ -1,6 +1,5 @@
 package dev.roysez.financemanager.service;
 
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import dev.roysez.financemanager.FinanceManagerApplication;
 import dev.roysez.financemanager.model.Transaction;
@@ -11,7 +10,6 @@ import org.springframework.stereotype.Service;
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Service
 public class TransactionServiceImpl implements TransactionService {
@@ -82,8 +80,7 @@ public class TransactionServiceImpl implements TransactionService {
     public boolean exists(Integer id) {
         Set<Transaction> list = findAll();
         Optional<Transaction> transaction = list.stream()
-                .filter(tr -> tr.getId().equals(id))
-                .collect(Collectors.reducing((a, b) -> null));
+                .filter(tr -> tr.getId().equals(id)).reduce((a, b) -> null);
 
         return transaction.isPresent();
     }
@@ -96,9 +93,9 @@ public class TransactionServiceImpl implements TransactionService {
                     });
 
             return list == null ? Collections.emptySet() : list;
-        } catch (JsonMappingException e) {
-            e.printStackTrace();
-            return Collections.emptySet();
+//        } catch (JsonMappingException e) {
+//            e.printStackTrace();
+//            return Collections.emptySet();
         } catch (IOException e) {
             e.printStackTrace();
             return Collections.emptySet();
@@ -109,8 +106,7 @@ public class TransactionServiceImpl implements TransactionService {
     public void delete(Integer id) {
         Set<Transaction> list = findAll();
         Optional<Transaction> transaction = list.stream()
-                .filter(tr -> tr.getId().equals(id))
-                .collect(Collectors.reducing((a, b) -> null));
+                .filter(tr -> tr.getId().equals(id)).reduce((a, b) -> null);
 
         if (transaction.isPresent())
             list.remove(transaction.get());
@@ -119,8 +115,5 @@ public class TransactionServiceImpl implements TransactionService {
 
     }
 
-    @Override
-    public void delete(Transaction entity) {
 
-    }
 }

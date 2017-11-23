@@ -1,5 +1,6 @@
 package dev.roysez.financemanager.controller;
 
+import com.fasterxml.jackson.databind.JsonMappingException;
 import dev.roysez.financemanager.model.Category;
 import dev.roysez.financemanager.model.Transaction;
 import dev.roysez.financemanager.model.User;
@@ -58,7 +59,10 @@ public class TransactionController {
             model.addAttribute("categoriesList", categories);
 
 
-        } catch (Exception e) {
+        } catch (JsonMappingException e ){
+            model.addAttribute("error","Check your file, something went wrong");
+        }
+        catch (Exception e) {
             model.addAttribute("error", "Something went wrong");
         }
         return "index";
