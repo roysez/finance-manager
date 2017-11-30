@@ -2,8 +2,6 @@ package dev.roysez.financemanager;
 
 import dev.roysez.financemanager.model.*;
 import dev.roysez.financemanager.service.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -17,7 +15,6 @@ import java.util.Date;
 @SpringBootApplication
 @ComponentScan
 public class FinanceManagerApplication extends SpringBootServletInitializer {
-
 
 
     public static void main(String[] args) {
@@ -60,7 +57,7 @@ public class FinanceManagerApplication extends SpringBootServletInitializer {
                     .setLastName("Балух")
                     .setId(1);
 
-          //  userService.saveUser(user);
+            //  userService.saveUser(user);
 
 
             Deposit deposit = new Deposit().setSum(3000L)

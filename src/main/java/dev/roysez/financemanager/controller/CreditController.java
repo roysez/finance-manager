@@ -38,12 +38,7 @@ public class CreditController {
     @Autowired
     CreditService creditService;
 
-    /**
-     * Генерування HTML сторінки, яка відповідає за Кредити
-     * @param model - {@link Model}
-     * @param error - Текст з помилкою при перенаправленні , "" - якщо немає помилок
-     * @return назва View
-     */
+
     @RequestMapping(value = {"", "/"}, method = RequestMethod.GET)
     public String creditPage(Model model, @ModelAttribute("error") String error) {
 
@@ -63,12 +58,7 @@ public class CreditController {
     }
 
 
-    /**
-     * Процес обробки даних, додавання нового Кредиту
-     * @param credit - обєкт Кредиту
-     * @param redir -
-     * @return
-     */
+
     @RequestMapping(value = {"/", ""}, method = RequestMethod.POST)
     public String postCredit(Credit credit,
                              RedirectAttributes redir) {
@@ -111,12 +101,7 @@ public class CreditController {
         return "redirect:/credits";
     }
 
-    /**
-     * Оплата частини боргу
-     * @param id - унікальне значення
-     * @param model - {@link Model}
-     * @return JSON
-     */
+
     @RequestMapping(value = "/{id}/charge", method = RequestMethod.POST)
     public ResponseEntity doCharge(@PathVariable Integer id, Model model) {
         try {
@@ -156,11 +141,7 @@ public class CreditController {
 
     }
 
-    /**
-     * Процес видалення кредиту
-     * @param id - унікальне значення
-     * @return - JSON
-     */
+
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity deleteCredit(@PathVariable Integer id) {
         creditService.delete(id);

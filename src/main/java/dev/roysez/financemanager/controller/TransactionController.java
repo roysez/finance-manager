@@ -31,12 +31,7 @@ public class TransactionController {
 
     @Autowired
     UserService userService;
-    /**
-     * Генерування HTML сторінки, яка відповідає за Транзакції
-     * @param model - {@link Model}
-     * @param error - Текст з помилкою при перенаправленні , "" - якщо немає помилок
-     * @return назва View
-     */
+
     @RequestMapping(value = {"", "/", "/transactions"})
     public String transactionPage(Model model, @ModelAttribute("error") String error) {
         try {
@@ -68,11 +63,7 @@ public class TransactionController {
         return "index";
     }
 
-    /**
-     * Процес видалення транзакції
-     * @param id - унікальне значення
-     * @return - JSON
-     */
+
     @RequestMapping(value = "/transactions/{id}", method = RequestMethod.DELETE)
     public ResponseEntity deleteTransaction(@PathVariable("id") String id) {
 
@@ -82,13 +73,7 @@ public class TransactionController {
         return new ResponseEntity(HttpStatus.OK);
     }
 
-    /**
-     * Добавлення нової витрати
-     * @param transaction - Транзакція для добавлення
-     * @param sC - вибрана категорія
-     * @param redir -
-     * @return назва View
-     */
+
     @RequestMapping(value = "/transactions/expenses", method = RequestMethod.POST)
     public String postExpense(Transaction transaction,
                               @RequestParam("selectedCategory") String sC,
@@ -128,13 +113,7 @@ public class TransactionController {
         }
         return "redirect:/transactions";
     }
-    /**
-     * Добавлення транзакції , Прибуток
-     * @param transaction - Транзакція для добавлення
-     * @param sC - вибрана категорія
-     * @param redir -
-     * @return назва View
-     */
+
     @RequestMapping(value = "/transactions/income", method = RequestMethod.POST)
     public String postIncome(Transaction transaction,
                              @RequestParam("selectedCategory") String sC,

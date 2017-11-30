@@ -38,13 +38,7 @@ public class DepositController {
     @Autowired
     UserService userService;
 
-    /**
-     * Генерування HTML сторінки, яка відповідає за Депозити
-     *
-     * @param model - {@link Model}
-     * @param error - Текст з помилкою при перенаправленні , "" - якщо немає помилок
-     * @return назва View
-     */
+
     @RequestMapping(value = {"", "/"}, method = RequestMethod.GET)
     public String depositsPage(Model model, @ModelAttribute("error") String error) {
 
@@ -64,13 +58,6 @@ public class DepositController {
         return "deposit";
     }
 
-    /**
-     * Процес обробки даних, додавання нового Депозиту
-     *
-     * @param deposit - обєкт Депозиту
-     * @param redir   - {@link RedirectAttributes}
-     * @return - назва View
-     */
     @RequestMapping(value = {"/", ""}, method = RequestMethod.POST)
     public String postDeposit(Deposit deposit,
                               RedirectAttributes redir) {
@@ -116,13 +103,7 @@ public class DepositController {
         return "redirect:/deposits";
     }
 
-    /**
-     * Отримання відсотків від депозиту
-     *
-     * @param id    - унікальне значення
-     * @param model - {@link Model}
-     * @return JSON
-     */
+
     @RequestMapping(value = "/{id}/charge", method = RequestMethod.POST)
     public ResponseEntity doCharge(@PathVariable Integer id, Model model) {
         try {
@@ -156,12 +137,7 @@ public class DepositController {
 
     }
 
-    /**
-     * Процес видалення депозиту
-     *
-     * @param id - унікальне значення
-     * @return - JSON
-     */
+
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity deleteDeposit(@PathVariable Integer id) {
         depositService.delete(id);

@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import dev.roysez.financemanager.FinanceManagerApplication;
 import dev.roysez.financemanager.model.Deposit;
-import dev.roysez.financemanager.model.Transaction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -18,18 +17,14 @@ import java.util.stream.Collectors;
 public class DepositServiceImpl implements DepositService {
 
 
+    private static final Logger log = LoggerFactory.getLogger(FinanceManagerApplication.class);
     private final String fileDest = "C:\\Users\\roysez\\IdeaProjects\\finance-manager\\documents\\deposits.json";
-
     private final ObjectMapper mapper = new ObjectMapper();
 
-    private static final Logger log = LoggerFactory.getLogger(FinanceManagerApplication.class);
-
-
-
     @Override
-    public boolean save(Deposit entity)  {
+    public boolean save(Deposit entity) {
         Set<Deposit> list = findAll();
-        if(list.isEmpty())
+        if (list.isEmpty())
             list = new TreeSet<>();
 
         try {
@@ -43,28 +38,28 @@ public class DepositServiceImpl implements DepositService {
         }
 
         boolean result = list.add(entity);
-        log.info("Deposit entity " + (result?"saved":"already exist") + " - {}" ,entity);
+        log.info("Deposit entity " + (result ? "saved" : "already exist") + " - {}", entity);
 
-        if(result)
+        if (result)
             save(list);
 
         return result;
     }
 
     @Override
-    public boolean update(Deposit entity)  {
+    public boolean update(Deposit entity) {
 
         Set<Deposit> list = findAll();
-        if(list.isEmpty())
+        if (list.isEmpty())
             list = new TreeSet<>();
 
         list.removeIf(deposit -> deposit.getId().equals(entity.getId()));
 
         boolean result = list.add(entity);
 
-        log.info("Deposit entity " + (result?"updated":"can't be saved") + " - {}" ,entity);
+        log.info("Deposit entity " + (result ? "updated" : "can't be saved") + " - {}", entity);
 
-        if(result)
+        if (result)
             save(list);
 
         return result;
@@ -73,7 +68,7 @@ public class DepositServiceImpl implements DepositService {
     @Override
     public Set<Deposit> save(Set<Deposit> entities) {
         try {
-            mapper.writeValue(new File(fileDest),entities);
+            mapper.writeValue(new File(fileDest), entities);
             return entities;
         } catch (Throwable e) {
             log.warn(e.getMessage());
@@ -82,7 +77,7 @@ public class DepositServiceImpl implements DepositService {
     }
 
     @Override
-    public Deposit findOne(Integer id)  {
+    public Deposit findOne(Integer id) {
 
         Set<Deposit> list = findAll();
         Deposit deposit = list.stream()
@@ -97,7 +92,7 @@ public class DepositServiceImpl implements DepositService {
     }
 
     @Override
-    public boolean exists(Integer id)  {
+    public boolean exists(Integer id) {
 
 
         Set<Deposit> list = findAll();
@@ -112,9 +107,10 @@ public class DepositServiceImpl implements DepositService {
     public Set<Deposit> findAll() {
         try {
             Set<Deposit> list = mapper.readValue(new File(fileDest),
-                    new com.fasterxml.jackson.core.type.TypeReference<TreeSet<Deposit>>(){});
+                    new com.fasterxml.jackson.core.type.TypeReference<TreeSet<Deposit>>() {
+                    });
 
-            return list==null? Collections.emptySet():list;
+            return list == null ? Collections.emptySet() : list;
         } catch (JsonMappingException e) {
             e.printStackTrace();
             return Collections.emptySet();
@@ -132,7 +128,7 @@ public class DepositServiceImpl implements DepositService {
                 .filter(tr -> tr.getId().equals(id))
                 .collect(Collectors.reducing((a, b) -> null));
 
-        if(deposit.isPresent())
+        if (deposit.isPresent())
             list.remove(deposit.get());
 
         save(list);
