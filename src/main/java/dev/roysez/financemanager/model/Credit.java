@@ -21,7 +21,6 @@ public class Credit implements Comparable<Credit> {
         status = CreditStatus.IN_PROCESS;
         paidMoney = 0D;
         monthPaid = 0;
-
     }
 
     @Override

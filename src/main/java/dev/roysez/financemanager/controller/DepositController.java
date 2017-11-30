@@ -1,6 +1,5 @@
 package dev.roysez.financemanager.controller;
 
-import dev.roysez.financemanager.model.Category;
 import dev.roysez.financemanager.model.Deposit;
 import dev.roysez.financemanager.model.Transaction;
 import dev.roysez.financemanager.model.User;
@@ -13,14 +12,15 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
 import java.util.Date;
 import java.util.Set;
-
-import static com.sun.org.apache.xalan.internal.xsltc.compiler.sym.error;
 
 @Controller
 @RequestMapping(value = "/deposits")
@@ -38,34 +38,34 @@ public class DepositController {
     @Autowired
     UserService userService;
 
-    @RequestMapping(value = {"","/"},method = RequestMethod.GET)
-    public String depositsPage(Model model, @ModelAttribute("error") String error){
 
-        if(!error.isEmpty()){
-            model.addAttribute("error",error);
+    @RequestMapping(value = {"", "/"}, method = RequestMethod.GET)
+    public String depositsPage(Model model, @ModelAttribute("error") String error) {
+
+        if (!error.isEmpty()) {
+            model.addAttribute("error", error);
         }
 
         try {
 
             Set<Deposit> deposits = depositService.findAll();
-            model.addAttribute("deposit",new Deposit());
-            model.addAttribute("deposits",deposits);
+            model.addAttribute("deposit", new Deposit());
+            model.addAttribute("deposits", deposits);
         } catch (Exception e) {
-            model.addAttribute("error",e.getMessage());
+            model.addAttribute("error", e.getMessage());
         }
 
         return "deposit";
     }
 
-    @RequestMapping(value = {"/",""},method = RequestMethod.POST)
+    @RequestMapping(value = {"/", ""}, method = RequestMethod.POST)
     public String postDeposit(Deposit deposit,
-                              RedirectAttributes redir){
-
+                              RedirectAttributes redir) {
 
 
         try {
 
-            if(deposit.getPercentages()< 0 || deposit.getPercentages()>100 || deposit.getTerm()<1)
+            if (deposit.getPercentages() < 0 || deposit.getPercentages() > 100 || deposit.getTerm() < 1)
                 throw new IllegalArgumentException("Percentage should be [0:100] ( or term should be > 1 ) ");
 
             User user = userService.getUser();
@@ -73,20 +73,18 @@ public class DepositController {
             Long userBalance = user.getBalance();
 
 
-            if(userBalance -deposit.getSum() < 0)
+            if (userBalance - deposit.getSum() < 0)
                 throw new IllegalStateException("You don't have enough money to take this deposit");
 
-            user.setBalance(userBalance-deposit.getSum());
-
+            user.setBalance(userBalance - deposit.getSum());
 
 
             Transaction transaction = new Transaction()
-                    .setCategory(categoryService.findOneByName("Deposit"))
+                    .setCategory(categoryService.findOneByName("Депозит"))
                     .setDate(new Date())
                     .setTrType(Transaction.TransactionType.TRANSACTION_EXPENSE)
                     .setDescription("Put money in deposit")
                     .setSum(deposit.getSum());
-
 
 
             transactionService.save(transaction);
@@ -95,18 +93,19 @@ public class DepositController {
 
             userService.saveUser(user);
 
-            System.out.println("Deposit created ["+ deposit.getSum()+"]");
+            System.out.println("Deposit created [" + deposit.getSum() + "]");
 
         } catch (IOException e) {
-            redir.addFlashAttribute("error","Error while reading user information");
-        } catch (IllegalStateException  | IllegalArgumentException e) {
+            redir.addFlashAttribute("error", "Error while reading user information");
+        } catch (IllegalStateException | IllegalArgumentException e) {
             redir.addFlashAttribute("error", e.getMessage());
         }
         return "redirect:/deposits";
     }
 
-    @RequestMapping(value = "/{id}/charge",method = RequestMethod.POST)
-    public ResponseEntity doCharge(@PathVariable Integer id, Model model){
+
+    @RequestMapping(value = "/{id}/charge", method = RequestMethod.POST)
+    public ResponseEntity doCharge(@PathVariable Integer id, Model model) {
         try {
             Deposit deposit = depositService.findOne(id);
             Long charge = deposit.doCharge();
@@ -114,13 +113,13 @@ public class DepositController {
             User user = userService.getUser();
 
             Transaction transaction = new Transaction()
-                    .setCategory(categoryService.findOneByName("Deposit"))
+                    .setCategory(categoryService.findOneByName("Депозит"))
                     .setDate(new Date())
                     .setTrType(Transaction.TransactionType.TRANSACTION_INCOME)
                     .setDescription("Profit from deposit")
                     .setSum(charge);
 
-            user.setBalance(user.getBalance()+charge);
+            user.setBalance(user.getBalance() + charge);
 
             transactionService.save(transaction);
 
@@ -137,8 +136,10 @@ public class DepositController {
         }
 
     }
-    @RequestMapping(value = "/{id}",method = RequestMethod.DELETE)
-    public  ResponseEntity deleteDeposit(@PathVariable Integer id){
+
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity deleteDeposit(@PathVariable Integer id) {
         depositService.delete(id);
         return new ResponseEntity(HttpStatus.OK);
     }
